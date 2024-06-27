@@ -1,0 +1,52 @@
+"use client";
+
+import Slider1 from "@/../public/slider1.webp";
+import Slider2 from "@/../public/slider2.webp";
+import Slider3 from "@/../public/slider3.webp";
+import useEmblaCarousel from "embla-carousel-react";
+import Image from "next/image";
+import React from "react";
+import "./carousel.css";
+import Autoplay from "embla-carousel-autoplay";
+
+export default function Carousel() {
+  const [emblaRef] = useEmblaCarousel(
+    {
+      loop: true,
+    },
+    [Autoplay({ playOnInit: true, delay: 3000 })]
+  );
+
+  return (
+    <section className="min-h-screen pt-10 embla">
+      <div className="embla__viewport" ref={emblaRef}>
+        <div className="embla__container">
+          <div className="embla__slide" key={1}>
+            <Image
+              src={Slider1}
+              alt="carousel"
+              width={1200}
+              className="rounded-lg"
+            />
+          </div>
+          <div className="embla__slide" key={2}>
+            <Image
+              src={Slider2}
+              alt="carousel"
+              width={1200}
+              className="rounded-lg"
+            />
+          </div>
+          <div className="embla__slide" key={3}>
+            <Image
+              src={Slider3}
+              alt="carousel"
+              width={1200}
+              className="rounded-lg"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
