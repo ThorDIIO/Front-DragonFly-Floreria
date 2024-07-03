@@ -43,10 +43,10 @@ export default function CreateProductDashboard() {
                 <ModalBody>
                   <div className="flex gap-x-2">
                     {/* Nombre */}
-                    <Input type="name" label="Nombre" />
+                    <Input type="name" label="Nombre" isRequired />
 
                     {/* Descripción */}
-                    <Input type="textarea" label="Descripción" />
+                    <Input type="textarea" label="Descripción" isRequired />
                   </div>
 
                   <div className="flex gap-x-2">
@@ -60,15 +60,21 @@ export default function CreateProductDashboard() {
                           <span className="text-default-400 text-small">$</span>
                         </div>
                       }
+                      isRequired
                     />
 
                     {/* Stock */}
-                    <Input label="Stock" type="number" placeholder="0" />
+                    <Input
+                      label="Stock"
+                      type="number"
+                      placeholder="0"
+                      isRequired
+                    />
                   </div>
 
                   <div className="flex gap-x-2">
                     {/* Categoría */}
-                    <Select label="Selecciona una categoria">
+                    <Select label="Selecciona una categoria" isRequired>
                       {categories.map((category: any) => (
                         <SelectItem key={category.key}>
                           {category.label}
@@ -77,25 +83,31 @@ export default function CreateProductDashboard() {
                     </Select>
 
                     {/* Color */}
-                    <Input label="Color" placeholder="Ejemplo: Verde" />
+                    <Input
+                      label="Color"
+                      placeholder="Ejemplo: Verde"
+                      isRequired
+                    />
                   </div>
 
                   {/* Tipo de Planta */}
                   <Input
                     label="Tipo de planta"
                     placeholder="Ejemplo: Suculenta"
+                    isRequired
                   />
 
                   {/* Descuento */}
                   <Input
                     label="Descuento"
                     placeholder="0.00"
+                    type="number"
+                    isRequired
                     startContent={
                       <div className="pointer-events-none flex items-center">
                         <span className="text-default-400 text-small">%</span>
                       </div>
                     }
-                    type="number"
                   />
 
                   {/* SKU */}
@@ -103,6 +115,8 @@ export default function CreateProductDashboard() {
                     label="SKU"
                     placeholder="Ejemplo: 123456"
                     description="El SKU es un código único para cada producto. Autogenerado."
+                    isReadOnly
+                    isDisabled
                   />
 
                   {/* Imagen */}
