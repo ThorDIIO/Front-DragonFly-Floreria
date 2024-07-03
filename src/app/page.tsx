@@ -8,7 +8,7 @@ export default function Home() {
         <Carousel />
       </div>
       <footer className="bg-pink-100 text-gray-700 mt-auto py-8">
-        <div className="flex justify-center items-center h-full"> 
+        <div className="flex justify-center items-center h-full">
           <div className="container mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
               <div className="text-center md:col-span-2 md:col-start-2">
@@ -68,7 +68,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            
+
             {/* Copyright */}
             <div className="text-center">
               <p className="text-xs">DragonFly - Todos los Derechos Reservados 2024</p>
@@ -76,6 +76,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>
+  );
 }

@@ -3,9 +3,8 @@
 import Footer from "@/components/main-footer";
 import NavbarCustom from "@/components/main-navbar";
 import { Inter } from "next/font/google";
-import { useRouter } from "next/router";
-import "./globals.css";
 import { usePathname } from "next/navigation";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +15,7 @@ export default function RootLayout({
 }>) {
   const pathnames = usePathname();
 
-  const shouldShowNavbar = !pathnames.includes("/auth");
+  const shouldShowNavbar = !pathnames.includes("/dashboard") && !pathnames.includes("/auth");
 
   return (
     <html lang="en">
