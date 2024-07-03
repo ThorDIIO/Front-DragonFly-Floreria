@@ -43,7 +43,15 @@ export default function NavbarCustom({
         </NavbarContent>
 
         <NavbarBrand className="max-sm:hidden pb-2">
-          <Image alt="Logo" src={Logo} height={130} width={130} className="" />
+          <Link href={"/"}>
+            <Image
+              alt="Logo"
+              src={Logo}
+              height={130}
+              width={130}
+              className=""
+            />
+          </Link>
         </NavbarBrand>
         <NavbarContent justify="center" className="max-sm:hidden">
           {items.map((item, index) => (
