@@ -11,6 +11,7 @@ const statusColorMap: any = {
 };
 import { columns, users } from '@/utils/temporal-data/data'
 import { SearchIcon } from '@/utils/icons/SearchIcon';
+import CreateProductDashboard from '../components/products/create-product-dashboard';
 export default function ProductsDashboard() {
 
     const renderCell = React.useCallback((user: any, columnKey: any) => {
@@ -42,17 +43,17 @@ export default function ProductsDashboard() {
             case "actions":
                 return (
                     <div className="relative flex items-center gap-2">
-                        <Tooltip content="Details">
+                        <Tooltip content="Detalles">
                             <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                                 <EyeIcon />
                             </span>
                         </Tooltip>
-                        <Tooltip content="Edit user">
+                        <Tooltip content="Editar producto">
                             <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                                 <EditIcon />
                             </span>
                         </Tooltip>
-                        <Tooltip color="danger" content="Delete user">
+                        <Tooltip color="danger" content="Eliminar producto">
                             <span className="text-lg text-danger cursor-pointer active:opacity-50">
                                 <DeleteIcon />
                             </span>
@@ -66,7 +67,7 @@ export default function ProductsDashboard() {
 
     return (
         <div className='flex flex-col gap-y-2 p-2'>
-            <div className='flex justify-between px-10'>
+            <div className='flex justify-between px-10 items-center'>
                 <Input
                     label="Buscador"
                     isClearable
@@ -77,9 +78,7 @@ export default function ProductsDashboard() {
                         <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
                     }
                 />
-                <Button color="success" className='text-white'>
-                    Crear producto
-                </Button>
+                <CreateProductDashboard />
             </div>
 
             <Table aria-label="Product Table - DragonFly">
