@@ -10,7 +10,6 @@ import {
   SelectItem,
   useDisclosure,
 } from "@nextui-org/react";
-import React from "react";
 
 export default function CreateProductDashboard() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import {
   Button,
   Navbar,
@@ -12,6 +11,7 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import React, { useState } from 'react';
 import Logo from '../../public/LOGO-LETRA.png';
 
 export default function NavbarCustom({ children }: { children: React.ReactNode }) {

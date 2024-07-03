@@ -2,16 +2,16 @@
 import { DeleteIcon } from '@/utils/icons/DeleteIcon';
 import { EditIcon } from '@/utils/icons/EditIcon';
 import { EyeIcon } from '@/utils/icons/EyeIcon';
-import { Button, Chip, Input, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Tooltip, User } from '@nextui-org/react';
-import React from 'react'
+import { SearchIcon } from '@/utils/icons/SearchIcon';
+import { columns, users } from '@/utils/temporal-data/data';
+import { Chip, Input, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Tooltip, User } from '@nextui-org/react';
+import React from 'react';
+import CreateProductDashboard from '../components/products/create-product-dashboard';
 const statusColorMap: any = {
     active: "success",
     paused: "danger",
     vacation: "warning",
 };
-import { columns, users } from '@/utils/temporal-data/data'
-import { SearchIcon } from '@/utils/icons/SearchIcon';
-import CreateProductDashboard from '../components/products/create-product-dashboard';
 export default function ProductsDashboard() {
 
     const renderCell = React.useCallback((user: any, columnKey: any) => {

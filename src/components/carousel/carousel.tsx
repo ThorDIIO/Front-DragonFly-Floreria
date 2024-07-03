@@ -3,11 +3,10 @@
 import Slider1 from "@/../public/slider1.webp";
 import Slider2 from "@/../public/slider2.webp";
 import Slider3 from "@/../public/slider3.webp";
+import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
-import React from "react";
 import "./carousel.css";
-import Autoplay from "embla-carousel-autoplay";
 
 export default function Carousel() {
   const [emblaRef] = useEmblaCarousel(

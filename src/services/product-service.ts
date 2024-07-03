@@ -27,7 +27,7 @@ export const getAllProducts = async () => {
   try {
     const response = await fetch(`${BASE_URL}/products`, {
       headers: {
-       // Authorization: "Bearer " + localStorage.getItem("token"),
+        // Authorization: "Bearer " + localStorage.getItem("token"),
       },
     });
     const data = await response.json();
@@ -44,7 +44,7 @@ export const updateDiscipline = async (form: productType, id?: number) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-      //  Authorization: "Bearer " + localStorage.getItem("token"),
+        //  Authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify(form),
     });
@@ -58,7 +58,7 @@ export const getProductById = async (id: number) => {
   try {
     const response = await fetch(`${BASE_URL}/products/${id}`, {
       headers: {
-       // Authorization: "Bearer " + localStorage.getItem("token"),
+        // Authorization: "Bearer " + localStorage.getItem("token"),
       },
     });
     const data = await response.json();
@@ -74,7 +74,7 @@ export const deleteProduct = async (id: number) => {
     await fetch(`${BASE_URL}/products/${id}`, {
       method: "DELETE",
       headers: {
-       // Authorization: "Bearer " + localStorage.getItem("token"),
+        // Authorization: "Bearer " + localStorage.getItem("token"),
       },
     });
   } catch (error) {

@@ -1,7 +1,6 @@
 "use client";
-import { useState } from "react";
 import { Card, CardBody, CardHeader } from "@nextui-org/react";
-import Image, { StaticImageData } from "next/image";
+import { useState } from "react";
 import ProductModal from "./product-modal";
 
 export default function ProductCard({

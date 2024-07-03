@@ -1,8 +1,8 @@
 "use client";
 
-import { Inter } from "next/font/google";
+import Header from "./components/general/Header";
+import Sidebar from "./components/general/Sidebar";
 
-const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
     children,
@@ -12,11 +12,11 @@ export default function RootLayout({
 
 
     return (
-        <html lang="en">
-            <body className={inter.className}>
-
-                {children}
-            </body>
-        </html>
+        <Sidebar>
+            <main className="bg-gray-100 min-h-screen">
+                <Header />
+                <div className="pt-2">{children}</div>
+            </main>
+        </Sidebar>
     );
 }

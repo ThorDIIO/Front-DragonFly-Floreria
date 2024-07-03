@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { Button, Input, Textarea, Select, Checkbox, SelectItem } from '@nextui-org/react';
+import { Button, Checkbox, Input, Select, SelectItem, Textarea } from '@nextui-org/react';
+import { useEffect, useState } from 'react';
 
 const LibroReclamaciones = () => {
   const [dateTime, setDateTime] = useState('');
