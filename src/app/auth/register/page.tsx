@@ -40,13 +40,15 @@ export default function Register() {
   return (
     <section className="flex min-h-screen">
       <div className="hidden md:flex w-1/3 relative">
+      <a href="/">
         <Image
-          src="/Catalogo Aromaterapia Minimalista Organico Verde.png"
-          alt="Catálogo de Aromaterapia Orgánica Minimalista Verde"
+          src="/anturio.register.png"
+          alt="anturio.register"
           layout="fill"
           objectFit="cover"
           className="absolute inset-0"
         />
+        </a>
       </div>
       <div className="flex flex-1 items-center justify-center p-6 bg-gray-100">
         <div className="max-w-lg w-full bg-white rounded-lg shadow-md p-8">

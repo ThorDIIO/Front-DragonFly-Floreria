@@ -12,7 +12,7 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import Logo from '../../public/logo.png';
+import Logo from '../../public/LOGO-LETRA.png';
 
 export default function NavbarCustom({ children }: { children: React.ReactNode }) {
   const path = usePathname();
@@ -21,7 +21,7 @@ export default function NavbarCustom({ children }: { children: React.ReactNode }
   const items = [
     { label: 'Home', href: '/' },
     { label: 'Productos', href: '/catalogo' },
-    { label: 'Cuidados y complementos', href: '/cuidado-planta' },
+    { label: 'Cuidados', href: '/cuidado-planta' },
     { label: 'Sobre nosotros', href: '/sobre-nosotros' },
   ];
 
