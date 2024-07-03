@@ -54,7 +54,7 @@ export default function Home() {
                 <h3 className="text-lg font-bold mb-2">POLÍTICAS</h3>
                 <p className="text-sm mb-4"><a href="#" className="hover:underline">Horarios de atención</a></p>
                 <p className="text-sm mb-4"><a href="#" className="hover:underline">Términos y condiciones</a></p>
-                <p className="text-sm mb-4"><a href="/terminos-condiciones" className="hover:underline">Políticas de entrega y devolución</a></p>
+                <p className="text-sm mb-4"><a href="#" className="hover:underline">Políticas de entrega y devolución</a></p>
                 <div className="flex justify-center mb-2 mt-2">
                   <a href="/Libro">
                     <Image
