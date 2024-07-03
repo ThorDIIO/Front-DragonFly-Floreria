@@ -64,7 +64,7 @@ export default function NavbarCustom({ children }: { children: React.ReactNode }
           ))}
         </NavbarMenu>
       </Navbar>
-      <div>{children}</div>
+      <div className='pt-10'>{children}</div>
     </>
   );
 }

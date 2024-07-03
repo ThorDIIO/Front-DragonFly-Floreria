@@ -15,14 +15,18 @@ export default function RootLayout({
 }>) {
   const pathnames = usePathname();
 
-  const shouldShowNavbar = !pathnames.includes("/dashboard") && !pathnames.includes("/auth");
+  const shouldShowNavbar =
+    !pathnames.includes("/dashboard") && !pathnames.includes("/auth");
 
   return (
     <html lang="en">
       <body className={inter.className}>
         {shouldShowNavbar ? (
           <>
-            <NavbarCustom>{children}</NavbarCustom> <Footer />
+            <NavbarCustom>{children}</NavbarCustom>
+            <div className="w-full mt-10">
+              <Footer />
+            </div>
           </>
         ) : (
           children

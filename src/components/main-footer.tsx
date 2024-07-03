@@ -2,10 +2,11 @@ import React from "react";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import "./main-footer.css";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-pink-100 text-gray-700 mt-auto py-8">
+    <footer className="bg-pink-100 text-gray-700 mt-auto py-16">
       <div className="flex justify-center items-center h-full">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
@@ -96,9 +97,11 @@ export default function Footer() {
               </p>
               <div className="flex justify-center mb-2 mt-2">
                 <Link href="/libro">
-                  <img
-                    src="https://img.icons8.com/ios/50/000000/whatsapp--v1.png"
-                    alt="whatsapp"
+                  <Image
+                    src="/libro_reclamaciones.png"
+                    alt="libro"
+                    width={100}
+                    height={100}
                   />
                 </Link>
               </div>
