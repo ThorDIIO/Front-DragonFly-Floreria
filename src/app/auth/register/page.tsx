@@ -4,16 +4,19 @@ import React, { useState } from "react";
 import { EyeFilledIcon } from "../../../../public/svg/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../../../../public/svg/EyeSlashFilledIcon";
 import { register } from "@/services/auth-services";
-import Image from 'next/image';
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
   const [isVisible, setIsVisible] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  const router = useRouter();
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -26,10 +29,11 @@ export default function Register() {
         username: form.email.value,
         password: form.password.value,
         firstName: form.firstName.value,
-        lastName: form.lastName.value
+        lastName: form.lastName.value,
       };
       await register(formData);
-      window.location.href = "/auth/login";
+
+      router.push("/auth/login");
     } catch (error) {
       console.error(error);
     } finally {
@@ -40,20 +44,20 @@ export default function Register() {
   return (
     <section className="flex min-h-screen">
       <div className="hidden md:flex w-1/3 relative">
-      <a href="/">
-        <Image
-          src="/anturio.register.png"
-          alt="anturio.register"
-          layout="fill"
-          objectFit="cover"
-          className="absolute inset-0"
-        />
+        <a href="/">
+          <Image
+            src="/anturio.register.png"
+            alt="anturio.register"
+            layout="fill"
+            objectFit="cover"
+            className="absolute inset-0"
+          />
         </a>
       </div>
       <div className="flex flex-1 items-center justify-center p-6 bg-gray-100">
         <div className="max-w-lg w-full bg-white rounded-lg shadow-md p-8">
           <h1 className="text-3xl md:text-4xl font-bold leading-tight text-center text-gray-900 mb-6">
-            Crea una Cuenta 
+            Crea una Cuenta
           </h1>
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
@@ -128,7 +132,12 @@ export default function Register() {
               </Checkbox>
             </div>
             <div className="flex items-center justify-center mt-6">
-              <Button color="primary" type="submit" isLoading={loading} className="bg-pink-500 hover:bg-pink-600">
+              <Button
+                color="primary"
+                type="submit"
+                isLoading={loading}
+                className="bg-pink-500 hover:bg-pink-600"
+              >
                 Registrarse
               </Button>
             </div>
