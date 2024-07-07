@@ -7,10 +7,9 @@ import { IoHomeOutline } from 'react-icons/io5';
 import { RxDashboard, RxPerson } from 'react-icons/rx';
 
 const links = [
-    { name: 'Home', href: '/dashboard', icon: IoHomeOutline, bg: 'bg-purple-500' },
+    { name: 'Home', href: '/', icon: IoHomeOutline, bg: 'bg-purple-500' },
     { name: 'Products', href: '/dashboard/products', icon: RxDashboard },
-    { name: 'Users', href: '/dashboard/users', icon: RxPerson },
-
+    { name: 'Categories', href: '/dashboard/categories', icon: RxPerson },
 ];
 
 export default function NavLinks() {
