@@ -1,11 +1,10 @@
 "use client";
+import { getAllProducts } from "@/services/product-service";
 import { DeleteIcon } from "@/utils/icons/DeleteIcon";
 import { EditIcon } from "@/utils/icons/EditIcon";
 import { EyeIcon } from "@/utils/icons/EyeIcon";
 import { SearchIcon } from "@/utils/icons/SearchIcon";
-import { columns, users } from "@/utils/temporal-data/data";
 import {
-  Chip,
   Input,
   Table,
   TableBody,
@@ -16,47 +15,35 @@ import {
   Tooltip,
   User,
 } from "@nextui-org/react";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import CreateProductDashboard from "../components/products/create-product-dashboard";
-const statusColorMap: any = {
-  active: "success",
-  paused: "danger",
-  vacation: "warning",
-};
+
 export default function ProductsDashboard() {
-  const renderCell = React.useCallback((user: any, columnKey: any) => {
-    const cellValue = user[columnKey];
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    getAllProducts().then((data) => {
+      setProducts(data);
+    });
+  }, [products]);
+
+  const renderCell = useCallback((product: any, columnKey: any) => {
+    const cellValue = product[columnKey];
     switch (columnKey) {
       case "name":
         return (
           <User
-            avatarProps={{ radius: "lg", src: user.avatar }}
-            description={user.email}
+            avatarProps={{ radius: "lg", src: product.image }}
+            description={product.description}
             name={cellValue}
-          >
-            {user.email}
-          </User>
+          />
         );
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
-            <p className="text-bold text-sm capitalize text-default-400">
-              {user.team}
-            </p>
-          </div>
-        );
-      case "status":
-        return (
-          <Chip
-            className="capitalize"
-            color={statusColorMap[user.status]}
-            size="sm"
-            variant="flat"
-          >
-            {cellValue}
-          </Chip>
-        );
+      case "category":
+        return product.category.name;
+      case "price":
+        return `$${cellValue}`;
+      case "stock":
+        return `${cellValue} unidades`;
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
@@ -82,6 +69,33 @@ export default function ProductsDashboard() {
     }
   }, []);
 
+  const columns = [
+    {
+      name: "Nombre",
+      uid: "name",
+    },
+    {
+      name: "Categoría",
+      uid: "category",
+    },
+    {
+      name: "Precio",
+      uid: "price",
+    },
+    {
+      name: "Stock",
+      uid: "stock",
+    },
+    {
+      name: "Descuento",
+      uid: "discount",
+    },
+    {
+      name: "Acciones",
+      uid: "actions",
+    },
+  ];
+
   return (
     <div className="flex flex-col gap-y-2 p-2">
       <div className="flex justify-between px-10 items-center">
@@ -104,8 +118,8 @@ export default function ProductsDashboard() {
             <TableColumn key={column.uid}>{column.name}</TableColumn>
           )}
         </TableHeader>
-        <TableBody items={users}>
-          {(item) => (
+        <TableBody items={products}>
+          {(item: any) => (
             <TableRow key={item.id}>
               {(columnKey) => (
                 <TableCell>{renderCell(item, columnKey)}</TableCell>

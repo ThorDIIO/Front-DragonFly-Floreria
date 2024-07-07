@@ -2,14 +2,9 @@ import { generalRoutes } from "@/utils/routes/general.routes";
 
 const BASE_URL = generalRoutes.BASE_URL;
 
-type productType = {
-  name?: string;
-  description?: string;
-  price?: number;
-};
-export const createProduct = async (form: any) => {
+export const createCategory = async (form: any) => {
   try {
-    await fetch(`${BASE_URL}/products`, {
+    await fetch(`${BASE_URL}/categories`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,14 +13,14 @@ export const createProduct = async (form: any) => {
       body: JSON.stringify(form),
     });
   } catch (error) {
-    console.error("Error al crear un Producto:", error);
+    console.error("Error al crear una categoria:", error);
     throw error;
   }
 };
 
-export const getAllProducts = async () => {
+export const getAllCategories = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/products`, {
+    const response = await fetch(`${BASE_URL}/categories`, {
       headers: {
         // Authorization: "Bearer " + localStorage.getItem("token"),
       },
@@ -33,14 +28,14 @@ export const getAllProducts = async () => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error al obtener datos de productos:", error);
+    console.error("Error al obtener datos de categoria:", error);
     throw error;
   }
 };
 
-export const updateDiscipline = async (form: productType, id?: number) => {
+export const updateDiscipline = async (form: any, id?: number) => {
   try {
-    await fetch(`${BASE_URL}/products/${id}`, {
+    await fetch(`${BASE_URL}/categories/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +51,7 @@ export const updateDiscipline = async (form: productType, id?: number) => {
 
 export const getProductById = async (id: number) => {
   try {
-    const response = await fetch(`${BASE_URL}/products/${id}`, {
+    const response = await fetch(`${BASE_URL}/categories/${id}`, {
       headers: {
         // Authorization: "Bearer " + localStorage.getItem("token"),
       },
@@ -71,7 +66,7 @@ export const getProductById = async (id: number) => {
 
 export const deleteProduct = async (id: number) => {
   try {
-    await fetch(`${BASE_URL}/products/${id}`, {
+    await fetch(`${BASE_URL}/categories/${id}`, {
       method: "DELETE",
       headers: {
         // Authorization: "Bearer " + localStorage.getItem("token"),
