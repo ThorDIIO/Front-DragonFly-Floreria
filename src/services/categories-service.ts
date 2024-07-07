@@ -2,12 +2,7 @@ import { generalRoutes } from "@/utils/routes/general.routes";
 
 const BASE_URL = generalRoutes.BASE_URL;
 
-type productType = {
-  name?: string;
-  description?: string;
-  price?: number;
-};
-export const createCategory = async (form: productType) => {
+export const createCategory = async (form: any) => {
   try {
     await fetch(`${BASE_URL}/categories`, {
       method: "POST",
@@ -18,7 +13,7 @@ export const createCategory = async (form: productType) => {
       body: JSON.stringify(form),
     });
   } catch (error) {
-    console.error("Error al crear un Producto:", error);
+    console.error("Error al crear una categoria:", error);
     throw error;
   }
 };
@@ -38,7 +33,7 @@ export const getAllCategories = async () => {
   }
 };
 
-export const updateDiscipline = async (form: productType, id?: number) => {
+export const updateDiscipline = async (form: any, id?: number) => {
   try {
     await fetch(`${BASE_URL}/categories/${id}`, {
       method: "PUT",

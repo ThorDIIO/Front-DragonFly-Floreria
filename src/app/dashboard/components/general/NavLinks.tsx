@@ -4,12 +4,13 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { IoHomeOutline } from 'react-icons/io5';
-import { RxDashboard, RxPerson } from 'react-icons/rx';
+import { RxActivityLog, RxDashboard, RxPerson } from 'react-icons/rx';
 
 const links = [
     { name: 'Home', href: '/', icon: IoHomeOutline, bg: 'bg-purple-500' },
     { name: 'Products', href: '/dashboard/products', icon: RxDashboard },
-    { name: 'Categories', href: '/dashboard/categories', icon: RxPerson },
+    { name: 'Categories', href: '/dashboard/categories', icon: RxActivityLog },
+    { name: 'Users', href: '/dashboard/users', icon: RxPerson }
 ];
 
 export default function NavLinks() {
