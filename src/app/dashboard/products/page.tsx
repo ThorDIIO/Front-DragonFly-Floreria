@@ -1,11 +1,12 @@
 "use client";
-import { getAllProducts } from "@/services/product-service";
+import { deleteProduct, getAllProducts } from "@/services/product-service";
 import { DeleteIcon } from "@/utils/icons/DeleteIcon";
 import { EditIcon } from "@/utils/icons/EditIcon";
 import { EyeIcon } from "@/utils/icons/EyeIcon";
 import { SearchIcon } from "@/utils/icons/SearchIcon";
 import {
   Input,
+  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -26,6 +27,14 @@ export default function ProductsDashboard() {
       setProducts(data);
     });
   }, [products]);
+
+  const handleDeleteProduct = async (id: string) => {
+    try {
+      await deleteProduct(id);
+    } catch (error) {
+      console.error("Error al eliminar un Producto:", error);
+    }
+  };
 
   const renderCell = useCallback((product: any, columnKey: any) => {
     const cellValue = product[columnKey];
@@ -58,7 +67,10 @@ export default function ProductsDashboard() {
               </span>
             </Tooltip>
             <Tooltip color="danger" content="Eliminar producto">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
+              <span
+                className="text-lg text-danger cursor-pointer active:opacity-50"
+                onClick={() => handleDeleteProduct(product.id)}
+              >
                 <DeleteIcon />
               </span>
             </Tooltip>

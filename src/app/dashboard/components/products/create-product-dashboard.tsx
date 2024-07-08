@@ -1,5 +1,5 @@
 import { getAllCategories } from "@/services/categories-service";
-import { createProduct } from "@/services/product-service";
+import { createProduct, deleteProduct } from "@/services/product-service";
 import {
   Button,
   Input,

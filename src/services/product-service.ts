@@ -69,7 +69,7 @@ export const getProductById = async (id: number) => {
   }
 };
 
-export const deleteProduct = async (id: number) => {
+export const deleteProduct = async (id: string) => {
   try {
     await fetch(`${BASE_URL}/products/${id}`, {
       method: "DELETE",
