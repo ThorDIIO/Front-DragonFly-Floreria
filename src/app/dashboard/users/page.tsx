@@ -3,61 +3,57 @@ import { getAllUsers } from "@/services/auth-services";
 import { SearchIcon } from "@/utils/icons/SearchIcon";
 
 import {
+  Chip,
+  Input,
+  Spinner,
   Table,
   TableBody,
   TableCell,
   TableColumn,
   TableHeader,
   TableRow,
-  Input,
-  
-
+  User,
 } from "@nextui-org/react";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function UsersDashboard() {
-  const [Users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getAllUsers().then((data) => {
-      setUsers(data);
-    });
-  }, [Users]);
-
-  const renderCell = useCallback((User: any, columnKey: any) => {
-    const cellValue = Users[columnKey];
-    switch (columnKey) {
-      case "name":
-        return (
-          <User
-            avatarProps={{ radius: "lg", src: User.image }}
-            description={User.description}
-            name={cellValue}
-          />
-        );
-      case "firstName":
-        return User.name;
-      case "lastName":
-        return User.lastName;
-      case "username":
-        return User.firsName;
-        
+    const fetchUsers = async () => {
+      try {
+        const data = await getAllUsers();
+        setUsers(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
+    };
+    fetchUsers();
+  }, []);
+
+  const statusColorMap = {
+    ADMIN: "warning",
+    USER: "success",
+  } as any;
+
+  const renderCell = useCallback((user: any, columnKey: any) => {
+    const cellValue = user[columnKey];
+    switch (columnKey) {
+      case "role":
+        return (
+          <Chip color={statusColorMap[user.role]} size="sm" variant="flat">
+            {cellValue}
+          </Chip>
+        );
+      default:
+        return cellValue;
+    }
   }, []);
 
   const columns = [
-    {
-      name: "Nombre",
-      uid: "username",
-    },
-    {
-      name: "Contraseña",
-      uid: "password",
-    },
-    {
-      name: "DNI",
-      uid: "dni",
-    },
     {
       name: "Nombre",
       uid: "firstName",
@@ -65,6 +61,18 @@ export default function UsersDashboard() {
     {
       name: "Apellido",
       uid: "lastName",
+    },
+    {
+      name: "Nombre de usuario",
+      uid: "username",
+    },
+    {
+      name: "Rol",
+      uid: "role",
+    },
+    {
+      name: "DNI",
+      uid: "dni",
     },
   ];
 
@@ -81,24 +89,29 @@ export default function UsersDashboard() {
             <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
         />
-        <UsersDashboard />
+      </div>
+      {loading ? (
+        <div className="mt-8 flex justify-center items-center">
+          <Spinner color="secondary" />
         </div>
-      <Table aria-label="Product Table - DragonFly">
-        <TableHeader columns={columns}>
-          {(column) => (
-            <TableColumn key={column.uid}>{column.name}</TableColumn>
-          )}
-        </TableHeader>
-        <TableBody items={Users}>
-          {(item: any) => (
-            <TableRow key={item.id}>
-              {(columnKey) => (
-                <TableCell>{renderCell(item, columnKey)}</TableCell>
-              )}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+      ) : (
+        <Table aria-label="Product Table - DragonFly">
+          <TableHeader columns={columns}>
+            {(column) => (
+              <TableColumn key={column.uid}>{column.name}</TableColumn>
+            )}
+          </TableHeader>
+          <TableBody items={users}>
+            {(item: any) => (
+              <TableRow key={item.id}>
+                {(columnKey) => (
+                  <TableCell>{renderCell(item, columnKey)}</TableCell>
+                )}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      )}
     </div>
   );
 }

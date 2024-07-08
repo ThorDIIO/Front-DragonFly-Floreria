@@ -30,14 +30,6 @@ export default function CategoriesDashboard() {
   const renderCell = useCallback((category: any, columnKey: any) => {
     const cellValue = category[columnKey];
     switch (columnKey) {
-      case "name":
-        return (
-          <User
-            avatarProps={{ radius: "lg", src: category.image }}
-            description={category.description}
-            name={cellValue}
-          />
-        );
       case "category":
         return category.category.name;
       case "price":
