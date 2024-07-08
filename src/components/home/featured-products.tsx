@@ -28,7 +28,7 @@ export default function FeaturedProducts() {
         <h2 className="font-bold text-center w-1/2">Productos destacados</h2>
         <hr className="w-full" />
       </div>
-      <div className="h-full w-1/2 gap-2 grid grid-cols-2 sm:grid-cols-3">
+      <div className="h-full w-1/2 gap-2 gap-x-16 grid grid-cols-2 sm:grid-cols-3">
         {list.map((item, index) => (
           <Card
             shadow="sm"
