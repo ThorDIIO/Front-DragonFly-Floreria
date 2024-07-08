@@ -17,7 +17,7 @@ export default function Carousel() {
   );
 
   return (
-    <section className="min-h-screen pt-10 embla">
+    <section className="pt-10 embla">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           <div className="embla__slide" key={1}>
