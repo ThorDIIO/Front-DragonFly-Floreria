@@ -11,7 +11,11 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 
-export default function CreateCategoryDashboard() {
+export default function CreateCategoryDashboard({
+  handleReload,
+}: {
+  handleReload: () => void;
+}) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const handleCreateCategory = async (e: any) => {
@@ -23,6 +27,7 @@ export default function CreateCategoryDashboard() {
     };
 
     await createCategory(data);
+    handleReload(); 
   };
   return (
     <>

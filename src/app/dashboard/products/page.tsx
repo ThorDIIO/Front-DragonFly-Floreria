@@ -18,22 +18,43 @@ import {
 } from "@nextui-org/react";
 import React, { useCallback, useEffect, useState } from "react";
 import CreateProductDashboard from "../components/products/create-product-dashboard";
+import UpdateDetailProduct from "../components/products/update-detail-product-dashboard"; // Assuming you have this component
 
 export default function ProductsDashboard() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [openDetail, setOpenDetail] = useState(false);
+  const [currentProduct, setCurrentProduct] = useState(null) as any;
+  const [modalType, setModalType] = useState("details");
 
   useEffect(() => {
-    getAllProducts().then((data) => {
-      setProducts(data);
-    });
-  }, [products]);
+    const fetchProducts = async () => {
+      try {
+        const data = await getAllProducts();
+        setProducts(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const handleDeleteProduct = async (id: string) => {
     try {
       await deleteProduct(id);
+      handleReload();
     } catch (error) {
       console.error("Error al eliminar un Producto:", error);
     }
+  };
+
+  const handleReload = async () => {
+    setLoading(true);
+    const data = await getAllProducts();
+    setProducts(data);
+    setLoading(false);
   };
 
   const renderCell = useCallback((product: any, columnKey: any) => {
@@ -48,7 +69,7 @@ export default function ProductsDashboard() {
           />
         );
       case "category":
-        return product.category.name;
+        return product.category ? product.category.name : "Sin categoria";
       case "price":
         return `$${cellValue}`;
       case "stock":
@@ -57,12 +78,26 @@ export default function ProductsDashboard() {
         return (
           <div className="relative flex items-center gap-2">
             <Tooltip content="Detalles">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+              <span
+                className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                onClick={() => {
+                  setCurrentProduct(product);
+                  setModalType("details");
+                  setOpenDetail(true);
+                }}
+              >
                 <EyeIcon />
               </span>
             </Tooltip>
             <Tooltip content="Editar producto">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+              <span
+                className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                onClick={() => {
+                  setCurrentProduct(product);
+                  setModalType("update");
+                  setOpenDetail(true);
+                }}
+              >
                 <EditIcon />
               </span>
             </Tooltip>
@@ -121,25 +156,39 @@ export default function ProductsDashboard() {
             <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
         />
-        <CreateProductDashboard />
+        <CreateProductDashboard handleReload={handleReload} />
       </div>
-
-      <Table aria-label="Product Table - DragonFly">
-        <TableHeader columns={columns}>
-          {(column) => (
-            <TableColumn key={column.uid}>{column.name}</TableColumn>
-          )}
-        </TableHeader>
-        <TableBody items={products}>
-          {(item: any) => (
-            <TableRow key={item.id}>
-              {(columnKey) => (
-                <TableCell>{renderCell(item, columnKey)}</TableCell>
-              )}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+      {loading ? (
+        <div className="mt-8 flex justify-center items-center">
+          <Spinner color="secondary" />
+        </div>
+      ) : (
+        <Table aria-label="Product Table - DragonFly">
+          <TableHeader columns={columns}>
+            {(column) => (
+              <TableColumn key={column.uid}>{column.name}</TableColumn>
+            )}
+          </TableHeader>
+          <TableBody items={products}>
+            {(item: any) => (
+              <TableRow key={item.id}>
+                {(columnKey) => (
+                  <TableCell>{renderCell(item, columnKey)}</TableCell>
+                )}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      )}
+      {currentProduct && (
+        <UpdateDetailProduct
+          id={currentProduct.id}
+          open={openDetail}
+          type={modalType}
+          onClose={() => setOpenDetail(false)}
+          handleReload={handleReload}
+        />
+      )}
     </div>
   );
 }

@@ -38,7 +38,7 @@ export const getAllProducts = async () => {
   }
 };
 
-export const updateDiscipline = async (form: productType, id?: number) => {
+export const updateProduct = async (form: productType, id?: string) => {
   try {
     await fetch(`${BASE_URL}/products/${id}`, {
       method: "PUT",
@@ -54,7 +54,7 @@ export const updateDiscipline = async (form: productType, id?: number) => {
   }
 };
 
-export const getProductById = async (id: number) => {
+export const getProductById = async (id: string) => {
   try {
     const response = await fetch(`${BASE_URL}/products/${id}`, {
       headers: {

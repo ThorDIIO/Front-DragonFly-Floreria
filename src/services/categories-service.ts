@@ -33,7 +33,7 @@ export const getAllCategories = async () => {
   }
 };
 
-export const updateDiscipline = async (form: any, id?: number) => {
+export const updateCategory = async (form: any, id?: string) => {
   try {
     await fetch(`${BASE_URL}/categories/${id}`, {
       method: "PUT",
@@ -49,7 +49,7 @@ export const updateDiscipline = async (form: any, id?: number) => {
   }
 };
 
-export const getProductById = async (id: number) => {
+export const getCategoryById = async (id: string) => {
   try {
     const response = await fetch(`${BASE_URL}/categories/${id}`, {
       headers: {
@@ -64,7 +64,7 @@ export const getProductById = async (id: number) => {
   }
 };
 
-export const deleteProduct = async (id: number) => {
+export const deleteCategory = async (id: string) => {
   try {
     await fetch(`${BASE_URL}/categories/${id}`, {
       method: "DELETE",
