@@ -28,6 +28,7 @@ export default function UpdateDetailProduct({
 }) {
   const [product, setProduct] = useState({} as any);
   const [categories, setCategories] = useState([] as any);
+  const [categoryName, setCategoryName] = useState("");
 
   useEffect(() => {
     if (open) {
@@ -35,6 +36,8 @@ export default function UpdateDetailProduct({
         try {
           const data = await getProductById(id);
           setProduct(data);
+          const category = data.category;
+          setCategoryName(category.name);
         } catch (error) {
           console.error(error);
         }
@@ -152,21 +155,15 @@ export default function UpdateDetailProduct({
 
                   <div className="flex gap-x-2">
                     {/* Categoría */}
+                    <p>{categoryName}</p>
                     <Select
                       disabled={type === "details"}
-                      label="Selecciona una categoria"
+                      label="Categoría"
                       name="category"
                       isRequired
-                      value={product.category}
-                      onChange={(value: any) => {
-                        setProduct((prev: any) => ({
-                          ...prev,
-                          category: value,
-                        }));
-                      }}
                     >
                       {categories.map((category: any) => (
-                        <SelectItem key={category.id} value={category.id}>
+                        <SelectItem key={category.id} value={category.name}>
                           {category.name}
                         </SelectItem>
                       ))}

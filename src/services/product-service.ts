@@ -57,9 +57,7 @@ export const updateProduct = async (form: productType, id?: string) => {
 export const getProductById = async (id: string) => {
   try {
     const response = await fetch(`${BASE_URL}/products/${id}`, {
-      headers: {
-        // Authorization: "Bearer " + localStorage.getItem("token"),
-      },
+      headers: {},
     });
     const data = await response.json();
     return data;
