@@ -155,7 +155,6 @@ export default function UpdateDetailProduct({
 
                   <div className="flex gap-x-2">
                     {/* Categoría */}
-                    <p>{categoryName}</p>
                     <Select
                       disabled={type === "details"}
                       label="Categoría"
