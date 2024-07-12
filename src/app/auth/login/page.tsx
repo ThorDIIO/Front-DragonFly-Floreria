@@ -42,7 +42,7 @@ export default function Login() {
       <div className="hidden md:flex w-1/3 relative">
         <a href="/">
           <Image
-            src="/Catalogo Aromaterapia Minimalista Organico Verde.png"
+            src="/logo.png"
             alt="Catálogo de Aromaterapia Orgánica Minimalista Verde"
             layout="fill"
             objectFit="cover"

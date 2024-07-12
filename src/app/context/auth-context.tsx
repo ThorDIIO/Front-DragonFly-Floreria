@@ -44,7 +44,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         throw new Error("Invalid credentials");
       }
       localStorage.setItem("token", response);
-      router.push("/dashboard");
+      router.push("/dashboard/products");
     } catch (error) {
       console.error("Error during login:", error);
     }
