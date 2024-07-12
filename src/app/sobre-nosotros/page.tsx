@@ -1,6 +1,6 @@
 export default function AboutUs() {
   return (
-    <section className="overflow-hidden md:pt-0  min-h-screen max-sm:pt-5">
+    <section className="overflow-hidden md:pt-0  min-h-screen ">
       <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
         <div className="grid items-center grid-cols-1 md:grid-cols-2">
           <div>
