@@ -28,7 +28,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      setUser({ token });
+      //TODO: Validar token con el backend
+
+      const decodedToken = JSON.parse(atob(token.split(".")[1]));
+
+      setUser({ token, ...decodedToken });
     }
     setLoading(false);
   }, []);
