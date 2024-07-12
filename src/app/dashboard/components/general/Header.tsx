@@ -1,9 +1,8 @@
+import { useAuth } from "@/app/context/auth-context";
 import Image from "next/image";
+import { BiExit } from "react-icons/bi";
 import { FaCaretDown } from "react-icons/fa";
 import batman from "../../../../../public/batman.webp";
-import { useAuth } from "@/app/context/auth-context";
-import { BiExit } from "react-icons/bi";
-import { useEffect } from "react";
 export default function Header() {
   const { user, logout } = useAuth();
 

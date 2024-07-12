@@ -32,7 +32,7 @@ export default function UsersDashboard() {
       }
     };
     fetchUsers();
-  }, [users]);
+  }, []);
 
   const statusColorMap = {
     ADMIN: "warning",

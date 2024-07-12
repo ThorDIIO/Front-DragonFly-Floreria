@@ -28,14 +28,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      //TODO: Validar token con el backend
+      // TODO: Validar token con el backend
 
       const decodedToken = JSON.parse(atob(token.split(".")[1]));
-
       setUser({ token, ...decodedToken });
+
+      if (
+        decodedToken.role &&
+        Array.isArray(decodedToken.role) &&
+        decodedToken.role.some((r: any) => r.authority === "ADMIN")
+      ) {
+        router.push("/dashboard/products");
+      } else {
+        router.push("/");
+      }
     }
     setLoading(false);
-  }, []);
+  }, [router]);
 
   const loginAuth = async (username: string, password: string) => {
     try {
@@ -44,7 +53,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         throw new Error("Invalid credentials");
       }
       localStorage.setItem("token", response);
-      router.push("/dashboard/products");
+      const decodedToken = JSON.parse(atob(response.split(".")[1]));
+
+      if (
+        decodedToken.role &&
+        Array.isArray(decodedToken.role) &&
+        decodedToken.role.some((r: any) => r.authority === "ADMIN")
+      ) {
+        router.push("/dashboard/products");
+      } else {
+        router.push("/");
+      }
     } catch (error) {
       console.error("Error during login:", error);
     }
