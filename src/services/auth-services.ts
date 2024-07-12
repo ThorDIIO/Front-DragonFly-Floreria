@@ -11,7 +11,7 @@ export const login = async (username: any, password: any) => {
       body: JSON.stringify({ username, password }),
     });
     const data = await response.json();
-    console.log(data); // Maneja la respuesta como necesites (por ejemplo, guardar token en localStorage)
+    return data.token;
   } catch (error) {
     console.error(error);
   }

@@ -5,6 +5,7 @@ import NavbarCustom from "@/components/main-navbar";
 import { Inter } from "next/font/google";
 import { usePathname } from "next/navigation";
 import "./globals.css";
+import { AuthProvider } from "./context/auth-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,16 +22,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {shouldShowNavbar ? (
-          <>
-            <NavbarCustom>{children}</NavbarCustom>
-            <div className="w-full mt-10">
-              <Footer />
-            </div>
-          </>
-        ) : (
-          children
-        )}
+        <AuthProvider>
+          {shouldShowNavbar ? (
+            <>
+              <NavbarCustom>{children}</NavbarCustom>
+              <div className="w-full mt-10">
+                <Footer />
+              </div>
+            </>
+          ) : (
+            children
+          )}
+        </AuthProvider>
       </body>
     </html>
   );
