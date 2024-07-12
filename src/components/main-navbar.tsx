@@ -16,6 +16,7 @@ import Logo from "../../public/LOGO-LETRA.png";
 import { useAuth } from "@/app/context/auth-context";
 import { GiExitDoor } from "react-icons/gi";
 import { BiExit } from "react-icons/bi";
+import { RxDashboard } from "react-icons/rx";
 
 export default function NavbarCustom({
   children,
@@ -92,6 +93,16 @@ export default function NavbarCustom({
                 onClick={() => logout()}
               />
             </NavbarItem>
+            {user.role.some((r: any) => r.authority === "ADMIN") && (
+              <NavbarItem>
+                <Link href="/dashboard/products">
+                  <RxDashboard
+                    className="cursor-pointer text-green-500"
+                    size={20}
+                  />
+                </Link>
+              </NavbarItem>
+            )}
           </NavbarContent>
         )}
 
@@ -104,6 +115,7 @@ export default function NavbarCustom({
               <Link className="w-full" href={item.href}>
                 {item.label}
               </Link>
+              {/* Access to dashboard only if user is admin */}
             </NavbarMenuItem>
           ))}
         </NavbarMenu>
