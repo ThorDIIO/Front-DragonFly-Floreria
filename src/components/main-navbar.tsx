@@ -13,12 +13,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import Logo from "../../public/LOGO-LETRA.png";
+import { useAuth } from "@/app/context/auth-context";
 
 export default function NavbarCustom({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { logout, user } = useAuth();
   const path = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -60,22 +62,32 @@ export default function NavbarCustom({
             </NavbarItem>
           ))}
         </NavbarContent>
-
-        <NavbarContent justify="end">
-          <NavbarItem className="hidden lg:flex">
-            <Link href="/auth/login">Login</Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Button
-              as={Link}
-              color="warning"
-              href="/auth/register"
-              variant="flat"
-            >
-              Sign Up
-            </Button>
-          </NavbarItem>
-        </NavbarContent>
+        {!user ? (
+          <NavbarContent justify="end">
+            <NavbarItem className="hidden lg:flex">
+              <Link href="/auth/login">Login</Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Button
+                as={Link}
+                color="warning"
+                href="/auth/register"
+                variant="flat"
+              >
+                Sign Up
+              </Button>
+            </NavbarItem>
+          </NavbarContent>
+        ) : (
+          // Cerrar sesión
+          <NavbarContent justify="end">
+            <NavbarItem>
+              <Button color="danger" variant="flat" onClick={() => logout()}>
+                Logout
+              </Button>
+            </NavbarItem>
+          </NavbarContent>
+        )}
 
         <NavbarMenu>
           {items.map((item, index) => (

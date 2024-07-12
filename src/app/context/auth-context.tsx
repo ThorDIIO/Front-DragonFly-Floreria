@@ -54,7 +54,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       }
       localStorage.setItem("token", response);
       const decodedToken = JSON.parse(atob(response.split(".")[1]));
-
+      setUser({ token: response, ...decodedToken });
       if (
         decodedToken.role &&
         Array.isArray(decodedToken.role) &&
@@ -72,7 +72,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const logout = () => {
     localStorage.removeItem("token");
     setUser(null);
-    router.push("/auth/login");
   };
 
   return (
