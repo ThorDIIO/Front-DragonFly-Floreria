@@ -1,5 +1,5 @@
 import { login } from "@/services/auth-services";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface AuthContextProps {
@@ -24,6 +24,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
+  const pathName = usePathname();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -31,6 +32,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       // TODO: Validar token con el backend
 
       const decodedToken = JSON.parse(atob(token.split(".")[1]));
+
+      if (
+        pathName.startsWith("/dashboard") &&
+        (!decodedToken.role ||
+          !Array.isArray(decodedToken.role) ||
+          !decodedToken.role.some((r: any) => r.authority === "ADMIN"))
+      ) {
+        router.push("/");
+      }
       setUser({ token, ...decodedToken });
     }
     setLoading(false);
