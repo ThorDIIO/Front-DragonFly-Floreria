@@ -13,8 +13,16 @@ import Orchid from "../../public/orchid.webp";
 
 export default function ProductModal({
   children,
+  product,
 }: {
   children: React.ReactNode;
+  product: {
+    image: string;
+    hoverImage: string;
+    productName: string;
+    productDescription: string;
+    productPrice: number;
+  };
 }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -29,12 +37,12 @@ export default function ProductModal({
           backdrop:
             "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20",
         }}
-        size="4xl"
+        className="w-full max-w-3xl mx-auto  [overflow-y-auto]"
       >
         <ModalContent>
           <>
             <ModalHeader className="flex flex-col gap-1">
-              Orquídea - S/. 98.00
+              {product.productName} - {product.productPrice}
             </ModalHeader>
             <ModalBody>
               <div
@@ -44,12 +52,10 @@ export default function ProductModal({
                     items-center justify-center
                 "
               >
-                <Image
-                  src={Orchid}
+                <img
+                  src={product.image}
                   alt="Orquídea"
-                  width={300}
-                  height={300}
-                  className="rounded-xl"
+                  className="rounded-xl w-80 h-80 object-cover"
                 />
                 <div className="flex flex-col items-center gap-y-20">
                   <p className="text-sm">

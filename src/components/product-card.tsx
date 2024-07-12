@@ -17,7 +17,13 @@ export default function ProductCard({
   productPrice: number;
 }) {
   const [currentImage, setCurrentImage] = useState(image);
-
+  const product = {
+    image,
+    hoverImage,
+    productName,
+    productDescription,
+    productPrice,
+  };
   return (
     <Card className="py-4">
       <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
@@ -30,13 +36,13 @@ export default function ProductCard({
         onMouseLeave={() => setCurrentImage(image)}
       >
         <CardBody className="overflow-visible py-2 flex items-center cursor-pointer">
-          <ProductModal>
+          <ProductModal product={product}>
             <img
               alt="Card background"
               className="object-cover rounded-xl"
               src={currentImage}
-              width={120}
-              height={60}
+              width={300}
+              style={{ width: "300px", height: "200px", objectFit: "cover" }}
             />
           </ProductModal>
         </CardBody>
