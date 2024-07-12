@@ -32,16 +32,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       const decodedToken = JSON.parse(atob(token.split(".")[1]));
       setUser({ token, ...decodedToken });
-
-      if (
-        decodedToken.role &&
-        Array.isArray(decodedToken.role) &&
-        decodedToken.role.some((r: any) => r.authority === "ADMIN")
-      ) {
-        router.push("/dashboard/products");
-      } else {
-        router.push("/");
-      }
     }
     setLoading(false);
   }, [router]);

@@ -14,6 +14,8 @@ import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import Logo from "../../public/LOGO-LETRA.png";
 import { useAuth } from "@/app/context/auth-context";
+import { GiExitDoor } from "react-icons/gi";
+import { BiExit } from "react-icons/bi";
 
 export default function NavbarCustom({
   children,
@@ -79,12 +81,16 @@ export default function NavbarCustom({
             </NavbarItem>
           </NavbarContent>
         ) : (
-          // Cerrar sesión
           <NavbarContent justify="end">
             <NavbarItem>
-              <Button color="danger" variant="flat" onClick={() => logout()}>
-                Logout
-              </Button>
+              <p className="text-sm text-gray-400">{user.fullName}</p>
+            </NavbarItem>
+            <NavbarItem>
+              <BiExit
+                className="cursor-pointer text-red-500"
+                size={20}
+                onClick={() => logout()}
+              />
             </NavbarItem>
           </NavbarContent>
         )}
