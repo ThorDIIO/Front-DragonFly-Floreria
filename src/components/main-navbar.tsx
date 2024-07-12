@@ -1,3 +1,4 @@
+import { useAuth } from "@/app/context/auth-context";
 import {
   Button,
   Navbar,
@@ -7,16 +8,15 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
+  Tooltip,
 } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
-import Logo from "../../public/LOGO-LETRA.png";
-import { useAuth } from "@/app/context/auth-context";
-import { GiExitDoor } from "react-icons/gi";
 import { BiExit } from "react-icons/bi";
 import { RxDashboard } from "react-icons/rx";
+import Logo from "../../public/LOGO-LETRA.png";
 
 export default function NavbarCustom({
   children,
@@ -86,13 +86,6 @@ export default function NavbarCustom({
             <NavbarItem>
               <p className="text-sm text-gray-400">{user.fullName}</p>
             </NavbarItem>
-            <NavbarItem>
-              <BiExit
-                className="cursor-pointer text-red-500"
-                size={20}
-                onClick={() => logout()}
-              />
-            </NavbarItem>
             {user.role.some((r: any) => r.authority === "ADMIN") && (
               <NavbarItem>
                 <Link href="/dashboard/products">
@@ -103,6 +96,14 @@ export default function NavbarCustom({
                 </Link>
               </NavbarItem>
             )}
+
+            <NavbarItem>
+              <BiExit
+                className="cursor-pointer text-red-500"
+                size={20}
+                onClick={() => logout()}
+              />
+            </NavbarItem>
           </NavbarContent>
         )}
 
@@ -115,7 +116,6 @@ export default function NavbarCustom({
               <Link className="w-full" href={item.href}>
                 {item.label}
               </Link>
-              {/* Access to dashboard only if user is admin */}
             </NavbarMenuItem>
           ))}
         </NavbarMenu>
