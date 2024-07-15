@@ -1,5 +1,6 @@
 import { useAuth } from "@/app/context/auth-context";
 import {
+  Avatar,
   Button,
   Dropdown,
   DropdownItem,
@@ -16,7 +17,7 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { BiExit } from "react-icons/bi";
 import { RxDashboard } from "react-icons/rx";
@@ -31,6 +32,7 @@ export default function NavbarCustom({
 }) {
   const { logout, user } = useAuth();
   const path = usePathname();
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const items = [
@@ -89,8 +91,14 @@ export default function NavbarCustom({
           </NavbarContent>
         ) : (
           <NavbarContent justify="end">
-            <NavbarItem>
+            <NavbarItem className="flex items-center gap-x-2">
               <p className="text-sm text-gray-400">{user.fullName}</p>
+              <Avatar
+                src="/orchid.webp"
+                alt={user.fullName}
+                className="cursor-pointer bg-white border-2 border-gray-200"
+                onClick={() => router.push("/profile")}
+              />
             </NavbarItem>
 
             {user.role.some((r: any) => r.authority === "ADMIN") && (
@@ -106,13 +114,16 @@ export default function NavbarCustom({
             <NavbarItem>
               <Dropdown className="select-none">
                 <DropdownTrigger>
-                  <Button variant="flat">
+                  <Button variant="light">
                     <CgShoppingCart size={20} />
                   </Button>
                 </DropdownTrigger>
 
-                <DropdownMenu onAction={(key) => console.log(key)}>
-                  <DropdownItem key="shopping-cart">
+                <DropdownMenu>
+                  <DropdownItem
+                    key="shopping-cart"
+                    onClick={() => router.push("/shopping-cart")}
+                  >
                     <table>
                       <tr className="flex items-center gap-x-4 my-2">
                         <td>
