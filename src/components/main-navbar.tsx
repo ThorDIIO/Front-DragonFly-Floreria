@@ -1,6 +1,10 @@
 import { useAuth } from "@/app/context/auth-context";
 import {
   Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
   Navbar,
   NavbarBrand,
   NavbarContent,
@@ -17,6 +21,8 @@ import React, { useState } from "react";
 import { BiExit } from "react-icons/bi";
 import { RxDashboard } from "react-icons/rx";
 import Logo from "../../public/LOGO-LETRA.png";
+import { CgShoppingCart } from "react-icons/cg";
+import { DeleteIcon } from "@/utils/icons/DeleteIcon";
 
 export default function NavbarCustom({
   children,
@@ -86,6 +92,7 @@ export default function NavbarCustom({
             <NavbarItem>
               <p className="text-sm text-gray-400">{user.fullName}</p>
             </NavbarItem>
+
             {user.role.some((r: any) => r.authority === "ADMIN") && (
               <NavbarItem>
                 <Link href="/dashboard/products">
@@ -96,6 +103,44 @@ export default function NavbarCustom({
                 </Link>
               </NavbarItem>
             )}
+            <NavbarItem>
+              <Dropdown className="select-none">
+                <DropdownTrigger>
+                  <Button variant="flat">
+                    <CgShoppingCart size={20} />
+                  </Button>
+                </DropdownTrigger>
+
+                <DropdownMenu onAction={(key) => console.log(key)}>
+                  <DropdownItem key="shopping-cart">
+                    <table>
+                      <tr className="flex items-center gap-x-4 my-2">
+                        <td>
+                          <Image
+                            src="/orchid.webp"
+                            alt="Picture of the author"
+                            width={40}
+                            height={40}
+                          />
+                        </td>
+                        <td>
+                          <p>Producto 2</p>
+                          <p>150.00</p>
+                        </td>
+                      </tr>
+                    </table>
+                    <hr className="mt-4" />
+                  </DropdownItem>
+                  <DropdownItem
+                    key="delete"
+                    color="danger"
+                    startContent={<DeleteIcon className="text-xl" />}
+                  >
+                    Eliminar
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </NavbarItem>
 
             <NavbarItem>
               <BiExit
