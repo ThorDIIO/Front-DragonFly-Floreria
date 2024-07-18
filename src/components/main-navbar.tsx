@@ -44,6 +44,8 @@ export default function NavbarCustom({
     { label: "Sobre nosotros", href: "/sobre-nosotros" },
   ];
 
+  const badgeTotal = cart.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
     <>
       <Navbar
@@ -99,7 +101,7 @@ export default function NavbarCustom({
                   <Button variant="light">
                     <Badge
                       color="danger"
-                      content={cart.length}
+                      content={badgeTotal}
                       shape="circle"
                       size="sm"
                     >
