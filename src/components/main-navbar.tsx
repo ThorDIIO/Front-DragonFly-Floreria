@@ -97,7 +97,7 @@ export default function NavbarCustom({
                 src="/orchid.webp"
                 alt={user.fullName}
                 className="cursor-pointer bg-white border-2 border-gray-200"
-                onClick={() => router.push("/profile")}
+                onClick={() => router.push("/dashboard/profile")}
               />
             </NavbarItem>
 

@@ -6,11 +6,12 @@ import {
   DropdownTrigger,
   User,
 } from "@nextui-org/react";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import batman from "../../../../../public/batman.webp";
 export default function Header() {
   const { user, logout } = useAuth();
+
+  const router = useRouter();
 
   useEffect(() => {
     console.log(user);
@@ -40,7 +41,12 @@ export default function Header() {
               <p className="font-bold">Sesión iniciada como:</p>
               <p className="font-medium">{user.sub}</p>
             </DropdownItem>
-            <DropdownItem key="settings">Mi perfil</DropdownItem>
+            <DropdownItem
+              key="settings"
+              onClick={() => router.push("/dashboard/profile")}
+            >
+              Mi perfil
+            </DropdownItem>
             <DropdownItem key="logout" color="danger" onClick={() => logout()}>
               Cerrar Sesión
             </DropdownItem>
