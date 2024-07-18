@@ -132,7 +132,9 @@ export default function NavbarCustom({
                                 />
                               </td>
                               <td>
-                                <p>{item.productName}</p>
+                                <p>
+                                  {item.productName} ({item.quantity})
+                                </p>
                                 <p>{item.productPrice}</p>
                               </td>
                             </tr>
