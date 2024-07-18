@@ -160,7 +160,7 @@ export default function NavbarCustom({
                 <DropdownTrigger>
                   <User
                     name={user.fullName}
-                    description="Product Designer"
+                    description={user.sub}
                     avatarProps={{
                       src: "/batman.webp",
                     }}
