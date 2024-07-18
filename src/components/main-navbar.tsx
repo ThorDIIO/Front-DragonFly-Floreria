@@ -15,7 +15,7 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
-  User
+  User,
 } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -146,32 +146,32 @@ export default function NavbarCustom({
                   />
                 </DropdownTrigger>
                 <DropdownMenu>
-                  <DropdownItem key="profile">
-                    <Link
-                      href={"/dashboard/profile"}
-                      className="flex items-center gap-x-2"
-                    >
+                  <DropdownItem
+                    key="profile"
+                    onClick={() => router.push("/dashboard/profile")}
+                  >
+                    <div className="flex items-center gap-x-2">
                       <BiUser
                         className="cursor-pointer text-blue-500"
                         size={20}
                       />
                       Perfil
-                    </Link>
+                    </div>
                   </DropdownItem>
-                  <DropdownItem>
-                    {user.role.some((r: any) => r.authority === "ADMIN") && (
-                      <Link
-                        href="/dashboard/products"
-                        className="flex items-center gap-x-2"
-                      >
+                  {user.role.some((r: any) => r.authority === "ADMIN") && (
+                    <DropdownItem
+                      key="dashboard"
+                      onClick={() => router.push("/dashboard/products")}
+                    >
+                      <div className="flex items-center gap-x-2">
                         <RxDashboard
                           className="cursor-pointer text-green-500"
                           size={20}
                         />
                         Dashboard
-                      </Link>
-                    )}
-                  </DropdownItem>
+                      </div>
+                    </DropdownItem>
+                  )}
                   <DropdownItem key="logout" onClick={() => logout()}>
                     <div className="flex items-center gap-x-2">
                       <BiExit
