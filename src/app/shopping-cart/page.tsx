@@ -9,8 +9,14 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
+import { useCart } from "../context/cart-context";
 
 export default function ShoppingCart() {
+  const { cart } = useCart();
+  const total = cart.reduce(
+    (acc: number, item: any) => acc + item.productPrice,
+    0
+  );
   return (
     <div className="w-full flex justify-between gap-y-2 gap-x-10 p-2">
       <div className="w-full">
@@ -22,51 +28,23 @@ export default function ShoppingCart() {
             <TableColumn>Precio total</TableColumn>
           </TableHeader>
           <TableBody>
-            <TableRow key="1">
-              <TableCell className="flex items-center justify center">
-                <img
-                  src="/orchid.webp"
-                  alt="product"
-                  className="rounded-full h-12 w-12 object-cover mx-4 border-1"
-                />
-                <span>Producto 1</span>
-              </TableCell>
-              <TableCell>
-                <span>1</span>
-              </TableCell>
-              <TableCell>$100</TableCell>
-              <TableCell>$100</TableCell>
-            </TableRow>
-            <TableRow key="2">
-              <TableCell className="flex items-center justify center">
-                <img
-                  src="/orchid.webp"
-                  alt="product"
-                  className="rounded-full h-12 w-12 object-cover mx-4 border-1"
-                />
-                <span>Producto 2</span>
-              </TableCell>
-              <TableCell>
-                <span>1</span>
-              </TableCell>
-              <TableCell>$100</TableCell>
-              <TableCell>$100</TableCell>
-            </TableRow>
-            <TableRow key="3">
-              <TableCell className="flex items-center justify center">
-                <img
-                  src="/orchid.webp"
-                  alt="product"
-                  className="rounded-full h-12 w-12 object-cover mx-4 border-1"
-                />
-                <span>Producto 3</span>
-              </TableCell>
-              <TableCell>
-                <span>1</span>
-              </TableCell>
-              <TableCell>$100</TableCell>
-              <TableCell>$100</TableCell>
-            </TableRow>
+            {cart.map((item: any) => (
+              <TableRow key={item.id}>
+                <TableCell className="flex items-center justify center">
+                  <img
+                    src={item.image}
+                    alt="product"
+                    className="rounded-full h-12 w-12 object-cover mx-4 border-1"
+                  />
+                  <span>{item.productName}</span>
+                </TableCell>
+                <TableCell>
+                  <span>1</span>
+                </TableCell>
+                <TableCell>S/.{item.productPrice}</TableCell>
+                <TableCell>S/.{item.productPrice}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </div>
@@ -88,9 +66,9 @@ export default function ShoppingCart() {
           </TableHeader>
           <TableBody>
             <TableRow key="1">
-              <TableCell>$100</TableCell>
-              <TableCell>$100</TableCell>
-              <TableCell>$0</TableCell>
+              <TableCell>S/.{total}</TableCell>
+              <TableCell>S/.{total}</TableCell>
+              <TableCell>S/.0</TableCell>
             </TableRow>
           </TableBody>
         </Table>

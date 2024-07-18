@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { AuthProvider } from "./context/auth-context";
 import "./globals.css";
+import { CartProvider } from "./context/cart-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,16 +24,18 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          {shouldShowNavbar ? (
-            <>
-              <NavbarCustom>{children}</NavbarCustom>
-              <div className="w-full mt-10">
-                <Footer />
-              </div>
-            </>
-          ) : (
-            children
-          )}
+          <CartProvider>
+            {shouldShowNavbar ? (
+              <>
+                <NavbarCustom>{children}</NavbarCustom>
+                <div className="w-full mt-10">
+                  <Footer />
+                </div>
+              </>
+            ) : (
+              children
+            )}
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>

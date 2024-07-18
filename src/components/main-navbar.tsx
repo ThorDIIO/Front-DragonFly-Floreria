@@ -1,4 +1,5 @@
 import { useAuth } from "@/app/context/auth-context";
+import { useCart } from "@/app/context/cart-context";
 import { CartIcon } from "@/utils/icons/CartIcon";
 import { DeleteIcon } from "@/utils/icons/DeleteIcon";
 import {
@@ -34,6 +35,7 @@ export default function NavbarCustom({
   const path = usePathname();
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cart, clearCart } = useCart();
 
   const items = [
     { label: "Home", href: "/" },
@@ -95,7 +97,12 @@ export default function NavbarCustom({
               <Dropdown className="select-none">
                 <DropdownTrigger>
                   <Button variant="light">
-                    <Badge color="danger" content={1} shape="circle" size="sm">
+                    <Badge
+                      color="danger"
+                      content={cart.length}
+                      shape="circle"
+                      size="sm"
+                    >
                       <CartIcon size={25} />
                     </Badge>
                   </Button>
@@ -106,28 +113,40 @@ export default function NavbarCustom({
                     key="shopping-cart"
                     onClick={() => router.push("/shopping-cart")}
                   >
-                    <table>
-                      <tr className="flex items-center gap-x-4 my-2">
-                        <td>
-                          <Image
-                            src="/orchid.webp"
-                            alt="Picture of the author"
-                            width={40}
-                            height={40}
-                          />
-                        </td>
-                        <td>
-                          <p>Producto 2</p>
-                          <p>150.00</p>
-                        </td>
-                      </tr>
-                    </table>
+                    {cart.length === 0 ? (
+                      <p>No hay productos en el carrito</p>
+                    ) : (
+                      <table>
+                        <tbody>
+                          {cart.map((item: any) => (
+                            <tr
+                              key={item.id}
+                              className="flex items-center gap-x-4 my-2"
+                            >
+                              <td>
+                                <img
+                                  src={item.image}
+                                  alt={item.name}
+                                  width={40}
+                                  height={40}
+                                />
+                              </td>
+                              <td>
+                                <p>{item.productName}</p>
+                                <p>{item.productPrice}</p>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    )}
                     <hr className="mt-4" />
                   </DropdownItem>
                   <DropdownItem
                     key="delete"
                     color="danger"
                     startContent={<DeleteIcon className="text-xl" />}
+                    onClick={() => clearCart()}
                   >
                     Eliminar
                   </DropdownItem>

@@ -1,4 +1,5 @@
 "use client";
+import { useCart } from "@/app/context/cart-context";
 import {
   Button,
   Modal,
@@ -7,6 +8,7 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
+import { useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
 
 export default function ProductModal({
@@ -22,7 +24,12 @@ export default function ProductModal({
     productPrice: number;
   };
 }) {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const { addToCart, cart } = useCart();
+
+  useEffect(() => {
+    console.log(cart);
+  }, [cart]);
 
   return (
     <>
@@ -61,7 +68,14 @@ export default function ProductModal({
                     Nullam pulvinar risus non risus hendrerit venenatis.
                     Pellentesque sit amet hendrerit risus, sed porttitor quam.
                   </p>
-                  <Button color="success" endContent={<FaPlus />}>
+                  <Button
+                    color="success"
+                    endContent={<FaPlus />}
+                    onClick={() => {
+                      addToCart(product);
+                      onClose();
+                    }}
+                  >
                     Agregar al carrito
                   </Button>
                 </div>
