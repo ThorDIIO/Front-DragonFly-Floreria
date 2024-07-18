@@ -1,7 +1,8 @@
 import { useAuth } from "@/app/context/auth-context";
+import { CartIcon } from "@/utils/icons/CartIcon";
 import { DeleteIcon } from "@/utils/icons/DeleteIcon";
 import {
-  Avatar,
+  Badge,
   Button,
   Dropdown,
   DropdownItem,
@@ -14,13 +15,13 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
+  User
 } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { BiExit } from "react-icons/bi";
-import { CgShoppingCart } from "react-icons/cg";
+import { BiExit, BiUser } from "react-icons/bi";
 import { RxDashboard } from "react-icons/rx";
 import Logo from "../../public/LOGO-LETRA.png";
 
@@ -90,31 +91,13 @@ export default function NavbarCustom({
           </NavbarContent>
         ) : (
           <NavbarContent justify="end">
-            <NavbarItem className="flex items-center gap-x-2">
-              <p className="text-sm text-gray-400">{user.fullName}</p>
-              <Avatar
-                src="/orchid.webp"
-                alt={user.fullName}
-                className="cursor-pointer bg-white border-2 border-gray-200"
-                onClick={() => router.push("/dashboard/profile")}
-              />
-            </NavbarItem>
-
-            {user.role.some((r: any) => r.authority === "ADMIN") && (
-              <NavbarItem>
-                <Link href="/dashboard/products">
-                  <RxDashboard
-                    className="cursor-pointer text-green-500"
-                    size={20}
-                  />
-                </Link>
-              </NavbarItem>
-            )}
             <NavbarItem>
               <Dropdown className="select-none">
                 <DropdownTrigger>
                   <Button variant="light">
-                    <CgShoppingCart size={20} />
+                    <Badge color="danger" content={1} shape="circle" size="sm">
+                      <CartIcon size={25} />
+                    </Badge>
                   </Button>
                 </DropdownTrigger>
 
@@ -151,13 +134,55 @@ export default function NavbarCustom({
                 </DropdownMenu>
               </Dropdown>
             </NavbarItem>
-
-            <NavbarItem>
-              <BiExit
-                className="cursor-pointer text-red-500"
-                size={20}
-                onClick={() => logout()}
-              />
+            <NavbarItem className="flex items-center gap-x-2 cursor-pointer">
+              <Dropdown>
+                <DropdownTrigger>
+                  <User
+                    name={user.fullName}
+                    description="Product Designer"
+                    avatarProps={{
+                      src: "/batman.webp",
+                    }}
+                  />
+                </DropdownTrigger>
+                <DropdownMenu>
+                  <DropdownItem key="profile">
+                    <Link
+                      href={"/dashboard/profile"}
+                      className="flex items-center gap-x-2"
+                    >
+                      <BiUser
+                        className="cursor-pointer text-blue-500"
+                        size={20}
+                      />
+                      Perfil
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    {user.role.some((r: any) => r.authority === "ADMIN") && (
+                      <Link
+                        href="/dashboard/products"
+                        className="flex items-center gap-x-2"
+                      >
+                        <RxDashboard
+                          className="cursor-pointer text-green-500"
+                          size={20}
+                        />
+                        Dashboard
+                      </Link>
+                    )}
+                  </DropdownItem>
+                  <DropdownItem key="logout" onClick={() => logout()}>
+                    <div className="flex items-center gap-x-2">
+                      <BiExit
+                        className="cursor-pointer text-red-500"
+                        size={20}
+                      />
+                      Cerrar sesión
+                    </div>
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </NavbarItem>
           </NavbarContent>
         )}
