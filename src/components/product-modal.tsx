@@ -8,7 +8,6 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
-import { useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
 
 export default function ProductModal({
@@ -16,20 +15,10 @@ export default function ProductModal({
   product,
 }: {
   children: React.ReactNode;
-  product: {
-    image: string;
-    hoverImage: string;
-    productName: string;
-    productDescription: string;
-    productPrice: number;
-  };
+  product: any;
 }) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-  const { addToCart, cart } = useCart();
-
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
+  const { addToCart } = useCart();
 
   return (
     <>

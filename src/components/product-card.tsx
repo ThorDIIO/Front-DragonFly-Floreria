@@ -4,6 +4,7 @@ import { useState } from "react";
 import ProductModal from "./product-modal";
 
 export default function ProductCard({
+  id,
   image,
   hoverImage,
   productName,
@@ -15,9 +16,11 @@ export default function ProductCard({
   productName: string;
   productDescription: string;
   productPrice: number;
+  id: any;
 }) {
   const [currentImage, setCurrentImage] = useState(image);
   const product = {
+    id,
     image,
     hoverImage,
     productName,

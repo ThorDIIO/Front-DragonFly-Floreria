@@ -4,7 +4,7 @@ import { getAllProducts } from "@/services/product-service";
 import { useEffect, useState } from "react";
 
 export default function Catalogo() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([] as any[]);
   useEffect(() => {
     getAllProducts()
       .then((data: any) => {
@@ -24,6 +24,7 @@ export default function Catalogo() {
         {products.map((product: any) => (
           <ProductCard
             key={product.id}
+            id={product.id}
             image={product.image}
             hoverImage={product.hoverImage}
             productName={product.name}
