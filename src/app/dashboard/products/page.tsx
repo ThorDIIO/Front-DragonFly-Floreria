@@ -16,7 +16,7 @@ import {
   Tooltip,
   User,
 } from "@nextui-org/react";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CreateProductDashboard from "../components/products/create-product-dashboard";
 import UpdateDetailProduct from "../components/products/update-detail-product-dashboard"; // Assuming you have this component
 

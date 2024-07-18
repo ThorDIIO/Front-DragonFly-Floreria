@@ -1,5 +1,4 @@
 "use client";
-import { DeleteIcon } from "@/utils/icons/DeleteIcon";
 import {
   Button,
   Input,

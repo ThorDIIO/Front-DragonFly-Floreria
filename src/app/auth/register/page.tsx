@@ -1,11 +1,11 @@
 "use client";
+import { register } from "@/services/auth-services";
 import { Button, Checkbox, Input, Link } from "@nextui-org/react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { EyeFilledIcon } from "../../../../public/svg/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../../../../public/svg/EyeSlashFilledIcon";
-import { register } from "@/services/auth-services";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 export default function Register() {
   const [isVisible, setIsVisible] = useState(false);

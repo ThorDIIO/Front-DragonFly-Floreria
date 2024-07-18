@@ -1,4 +1,5 @@
 import { useAuth } from "@/app/context/auth-context";
+import { DeleteIcon } from "@/utils/icons/DeleteIcon";
 import {
   Avatar,
   Button,
@@ -13,17 +14,15 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
-  Tooltip,
 } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { BiExit } from "react-icons/bi";
+import { CgShoppingCart } from "react-icons/cg";
 import { RxDashboard } from "react-icons/rx";
 import Logo from "../../public/LOGO-LETRA.png";
-import { CgShoppingCart } from "react-icons/cg";
-import { DeleteIcon } from "@/utils/icons/DeleteIcon";
 
 export default function NavbarCustom({
   children,

@@ -7,9 +7,7 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
-import Image from "next/image";
 import { FaPlus } from "react-icons/fa";
-import Orchid from "../../public/orchid.webp";
 
 export default function ProductModal({
   children,

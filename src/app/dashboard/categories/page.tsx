@@ -18,7 +18,7 @@ import {
   TableRow,
   Tooltip,
 } from "@nextui-org/react";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CreateCategoryDashboard from "../components/categories/create-category-dashboard";
 import UpdateDetailCategory from "../components/categories/update-detail-category-dashboard";
 

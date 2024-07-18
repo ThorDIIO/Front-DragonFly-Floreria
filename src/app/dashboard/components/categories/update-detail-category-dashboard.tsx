@@ -1,12 +1,12 @@
 import { getCategoryById, updateCategory } from "@/services/categories-service";
 import {
-    Button,
-    Input,
-    Modal,
-    ModalBody,
-    ModalContent,
-    ModalFooter,
-    ModalHeader
+  Button,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 

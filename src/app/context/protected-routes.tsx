@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
+import { Spinner } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "./auth-context";
-import { Spinner } from "@nextui-org/react";
 
 const ProtectedRoute = ({ children }: any) => {
   const { user, loading } = useAuth();

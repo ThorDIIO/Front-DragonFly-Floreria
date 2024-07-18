@@ -9,7 +9,6 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
-import React from "react";
 
 export default function CreateCategoryDashboard({
   handleReload,

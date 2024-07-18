@@ -1,8 +1,6 @@
 "use client";
-import React from "react";
 import Image from "next/image";
 
-import CuidadoOrquideas from "@/../public/cuidado-orquideas.jpg";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 
 export default function CuidadoPlanta() {

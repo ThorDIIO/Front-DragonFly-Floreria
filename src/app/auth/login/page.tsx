@@ -1,12 +1,10 @@
 "use client";
+import { useAuth } from "@/app/context/auth-context";
 import { Button, Checkbox, Input, Link } from "@nextui-org/react";
+import Image from "next/image";
 import React, { useState } from "react";
 import { EyeFilledIcon } from "../../../../public/svg/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../../../../public/svg/EyeSlashFilledIcon";
-import { login } from "@/services/auth-services";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/app/context/auth-context";
 
 export default function Login() {
   const [isVisible, setIsVisible] = useState(false);

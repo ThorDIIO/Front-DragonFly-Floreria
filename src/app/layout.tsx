@@ -4,8 +4,8 @@ import Footer from "@/components/main-footer";
 import NavbarCustom from "@/components/main-navbar";
 import { Inter } from "next/font/google";
 import { usePathname } from "next/navigation";
-import "./globals.css";
 import { AuthProvider } from "./context/auth-context";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
