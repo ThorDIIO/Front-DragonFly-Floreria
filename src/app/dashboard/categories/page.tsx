@@ -21,6 +21,7 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import CreateCategoryDashboard from "../components/categories/create-category-dashboard";
 import UpdateDetailCategory from "../components/categories/update-detail-category-dashboard";
+import FlowerSpinner from "@/utils/icons/FlowerSpinner";
 
 export default function CategoriesDashboard() {
   const [categories, setCategories] = useState([]);
@@ -147,7 +148,7 @@ export default function CategoriesDashboard() {
       </div>
       {loading ? (
         <div className="mt-8 flex justify-center items-center">
-          <Spinner color="secondary" />
+          <FlowerSpinner />
         </div>
       ) : (
         <Table aria-label="Category Table - DragonFly">

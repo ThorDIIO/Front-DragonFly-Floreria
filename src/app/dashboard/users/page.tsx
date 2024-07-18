@@ -1,5 +1,6 @@
 "use client";
 import { getAllUsers } from "@/services/auth-services";
+import FlowerSpinner from "@/utils/icons/FlowerSpinner";
 import { SearchIcon } from "@/utils/icons/SearchIcon";
 
 import {
@@ -92,7 +93,7 @@ export default function UsersDashboard() {
       </div>
       {loading ? (
         <div className="mt-8 flex justify-center items-center">
-          <Spinner color="secondary" />
+          <FlowerSpinner />
         </div>
       ) : (
         <Table aria-label="Product Table - DragonFly">

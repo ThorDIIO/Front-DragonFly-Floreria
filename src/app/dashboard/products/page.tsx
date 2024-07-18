@@ -19,6 +19,7 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import CreateProductDashboard from "../components/products/create-product-dashboard";
 import UpdateDetailProduct from "../components/products/update-detail-product-dashboard"; // Assuming you have this component
+import FlowerSpinner from "@/utils/icons/FlowerSpinner";
 
 export default function ProductsDashboard() {
   const [products, setProducts] = useState([]);
@@ -160,7 +161,7 @@ export default function ProductsDashboard() {
       </div>
       {loading ? (
         <div className="mt-8 flex justify-center items-center">
-          <Spinner color="secondary" />
+          <FlowerSpinner />
         </div>
       ) : (
         <Table aria-label="Product Table - DragonFly">
