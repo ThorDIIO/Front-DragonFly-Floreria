@@ -13,10 +13,12 @@ import { useCart } from "../context/cart-context";
 
 export default function ShoppingCart() {
   const { cart } = useCart();
+
   const total = cart.reduce(
-    (acc: number, item: any) => acc + item.productPrice,
+    (acc: number, item: any) => acc + item.productPrice * item.quantity,
     0
   );
+
   return (
     <div className="w-full flex justify-between gap-y-2 gap-x-10 p-2">
       <div className="w-full">
@@ -39,10 +41,10 @@ export default function ShoppingCart() {
                   <span>{item.productName}</span>
                 </TableCell>
                 <TableCell>
-                  <span>1</span>
+                  <span>{item.quantity}</span>
                 </TableCell>
                 <TableCell>S/.{item.productPrice}</TableCell>
-                <TableCell>S/.{item.productPrice}</TableCell>
+                <TableCell>S/.{item.productPrice * item.quantity}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -72,7 +74,6 @@ export default function ShoppingCart() {
             </TableRow>
           </TableBody>
         </Table>
-        {/* Botón de pagar */}
         <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/2">
           Pagar
         </Button>
