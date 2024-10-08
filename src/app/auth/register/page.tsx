@@ -30,40 +30,63 @@ export default function Register() {
     birthDate: "",
     address: "",
   });
+
   const [docError, setDocError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const router = useRouter();
 
   const toggleVisibility = () => setIsVisible(!isVisible);
   const toggleConfirmPasswordVisibility = () => setConfirmPasswordVisible(!confirmPasswordVisible);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e:any) => {
     const { name, value } = e.target;
 
     if (name === "documentNumber") {
       const docType = formData.documentType;
       const maxLength = documentRules[docType];
 
-      if (value.length > maxLength) return; 
-      setDocError(value.length !== maxLength ? `Debe tener ${maxLength} caracteres` : "");
+      if (value.length <= maxLength) {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
+        setDocError(value.length !== maxLength ? `Debe tener ${maxLength} caracteres` : "");
+      }
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
     }
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    // Email validation
+    if (name === "username") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      setEmailError(!emailRegex.test(value) ? "Formato de correo inválido" : "");
+    }
   };
 
-  const handleDocumentTypeChange = (value: string) => {
+  const handleDocumentTypeChange = (value:any) => {
     setFormData((prev) => ({
       ...prev,
       documentType: value,
-      documentNumber: "", 
+      documentNumber: "", // Reset document number when type changes
     }));
-    setDocError(""); 
+    setDocError("");
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      alert("Las contraseñas no coinciden");
+      return;
+    }
+
+    if (emailError || docError) {
+      alert("Corrija los errores antes de enviar");
+      return;
+    }
+
     try {
       setLoading(true);
       await register(formData);
@@ -88,8 +111,8 @@ export default function Register() {
           />
         </a>
       </div>
-      <div className="flex flex-1 items-center justify-center p-6 bg-gray-100"> {/* Fondo gris claro */}
-        <div className="max-w-xl w-full bg-gray-50 rounded-lg shadow-md p-10"> {/* Fondo gris sutil */}
+      <div className="flex flex-1 items-center justify-center p-6 bg-gray-100">
+        <div className="max-w-xl w-full bg-gray-50 rounded-lg shadow-md p-10">
           <h1 className="text-4xl font-bold leading-tight text-center text-gray-900 mb-6">
             Crea una Cuenta
           </h1>
@@ -123,6 +146,7 @@ export default function Register() {
               label="Correo Electrónico"
               placeholder="Ingresa tu correo electrónico"
               isRequired
+              errorMessage={emailError}
             />
 
             {/* Password and Confirm Password */}
