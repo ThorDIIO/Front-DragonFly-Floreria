@@ -70,7 +70,7 @@ export default function Register() {
     setFormData((prev) => ({
       ...prev,
       documentType: value,
-      documentNumber: "", // Reset document number when type changes
+      documentNumber: "", 
     }));
     setDocError("");
   };

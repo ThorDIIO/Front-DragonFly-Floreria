@@ -111,7 +111,7 @@ export default function CreateProductDashboard({
                       name="name"
                       label="Nombre"
                       isRequired
-                      defaultValue={productData?.name || ""} // Pre-fill for editing
+                      defaultValue={productData?.name || ""} 
                     />
 
                     {/* Descripción */}
@@ -120,7 +120,7 @@ export default function CreateProductDashboard({
                       name="description"
                       label="Descripción"
                       isRequired
-                      defaultValue={productData?.description || ""} // Pre-fill for editing
+                      defaultValue={productData?.description || ""} 
                     />
                   </div>
 
@@ -137,7 +137,7 @@ export default function CreateProductDashboard({
                         </div>
                       }
                       isRequired
-                      defaultValue={productData?.price || ""} // Pre-fill for editing
+                      defaultValue={productData?.price || ""} 
                     />
 
                     {/* Stock */}
@@ -147,7 +147,7 @@ export default function CreateProductDashboard({
                       type="number"
                       placeholder="0"
                       isRequired
-                      defaultValue={productData?.stock || ""} // Pre-fill for editing
+                      defaultValue={productData?.stock || ""}
                     />
                   </div>
 
@@ -157,7 +157,7 @@ export default function CreateProductDashboard({
                       label="Selecciona una categoria"
                       name="category"
                       isRequired
-                      defaultValue={productData?.category.id || ""} // Pre-fill for editing
+                      defaultValue={productData?.category.id || ""} 
                     >
                       {categories.map((category: any) => (
                         <SelectItem key={category.id} value={category.id}>
@@ -172,7 +172,7 @@ export default function CreateProductDashboard({
                       name="color"
                       placeholder="Ejemplo: Verde"
                       isRequired
-                      defaultValue={productData?.color || ""} // Pre-fill for editing
+                      defaultValue={productData?.color || ""} 
                     />
                   </div>
 
@@ -182,7 +182,7 @@ export default function CreateProductDashboard({
                     name="plantType"
                     placeholder="Ejemplo: Suculenta"
                     isRequired
-                    defaultValue={productData?.flowerType || ""} // Pre-fill for editing
+                    defaultValue={productData?.flowerType || ""} 
                   />
 
                   {/* Descuento */}
@@ -197,7 +197,7 @@ export default function CreateProductDashboard({
                         <span className="text-default-400 text-small">%</span>
                       </div>
                     }
-                    defaultValue={productData?.discount || ""} // Pre-fill for editing
+                    defaultValue={productData?.discount || ""} 
                   />
 
                   {/* SKU */}
@@ -207,14 +207,14 @@ export default function CreateProductDashboard({
                     placeholder="Ejemplo: 123456"
                     description="El SKU es un código único para cada producto. Autogenerado."
                     isReadOnly
-                    defaultValue={productData ? productData.sku : "123456"} // Keep SKU if editing
+                    defaultValue={productData ? productData.sku : "123456"} 
                     isDisabled
                   />
 
                   {/* Imagen */}
                   <div>
                     <FileUploaderRegular
-                      multiple={false} // Permite cargar un solo archivo
+                      multiple={false} // 
                       onChange={(file) => handleFileUpload(file)}
                       sourceList="local, url, camera, dropbox"
                       classNameUploader="uc-light"
@@ -236,7 +236,7 @@ export default function CreateProductDashboard({
                   {/* Imagen Hover */}
                   <div>
                     <FileUploaderRegular
-                      multiple={false} // Permite cargar un solo archivo
+                      multiple={false} 
                       onChange={(file) => handleHoverImageUpload(file)}
                       sourceList="local, url, camera, dropbox"
                       classNameUploader="uc-light"

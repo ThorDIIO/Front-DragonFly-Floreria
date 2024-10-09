@@ -4,7 +4,7 @@ export default function SobreMi() {
   return (
     <section className="bg-gray-100 py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        {/* QUIÉNES SOMOS */}
+      
         <div className="mb-12 text-center">
           <h2 className="text-4xl font-bold text-purple-800">QUIÉNES SOMOS</h2>
           <p className="mt-4 text-lg text-gray-700">
@@ -23,7 +23,7 @@ export default function SobreMi() {
           />
         </div>
 
-        {/* Filosofía */}
+      
         <div className="mb-12 text-center">
           <h3 className="text-3xl font-semibold text-purple-700">La filosofía de DragonFly</h3>
           <p className="mt-2 text-lg text-gray-700">
@@ -31,7 +31,6 @@ export default function SobreMi() {
           </p>
         </div>
 
-        {/* Nuestra Promesa */}
         <div className="mb-12 text-center bg-pink-500 text-white p-6 rounded-lg shadow-lg">
           <h3 className="text-2xl font-semibold">Nuestra Promesa</h3>
           <p className="mt-2 text-lg">
@@ -39,7 +38,7 @@ export default function SobreMi() {
           </p>
         </div>
 
-        {/* Misión y Visión */}
+  
         <div className="mb-12 text-center">
           <h3 className="text-3xl font-semibold text-purple-700">Misión</h3>
           <p className="mt-2 text-lg text-gray-700">
@@ -58,11 +57,10 @@ export default function SobreMi() {
           />
         </div>
 
-        {/* Nuestros Valores - Cuadrícula */}
         <div className="mb-12 text-center">
           <h3 className="text-3xl font-semibold text-purple-700">NUESTROS VALORES</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
-            {/* Valor 1 */}
+        
             <div className="p-6 bg-white border border-gray-300 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <h4 className="text-xl font-semibold text-purple-800">Somos cuidadosos</h4>
               <p className="mt-2 text-gray-600">
@@ -70,7 +68,6 @@ export default function SobreMi() {
               </p>
             </div>
 
-            {/* Valor 2 */}
             <div className="p-6 bg-white border border-gray-300 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <h4 className="text-xl font-semibold text-purple-800">Somos comprometidos</h4>
               <p className="mt-2 text-gray-600">
@@ -78,7 +75,6 @@ export default function SobreMi() {
               </p>
             </div>
 
-            {/* Valor 3 */}
             <div className="p-6 bg-white border border-gray-300 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <h4 className="text-xl font-semibold text-purple-800">Somos comprensivos</h4>
               <p className="mt-2 text-gray-600">
@@ -86,7 +82,6 @@ export default function SobreMi() {
               </p>
             </div>
 
-            {/* Valor 4 */}
             <div className="p-6 bg-white border border-gray-300 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <h4 className="text-xl font-semibold text-purple-800">Somos serviciales</h4>
               <p className="mt-2 text-gray-600">
@@ -96,7 +91,6 @@ export default function SobreMi() {
           </div>
         </div>
 
-        {/* Llamada a la acción */}
         <div className="mt-12 text-center">
           <a
             href="https://www.instagram.com/detalles_dragonfly?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="

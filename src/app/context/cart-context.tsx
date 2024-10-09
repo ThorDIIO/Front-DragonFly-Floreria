@@ -9,7 +9,7 @@ interface CartItem {
 interface CartContextProps {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
-  updateQuantity: (itemId: any, quantity: number) => void; // Agregar esta función
+  updateQuantity: (itemId: any, quantity: number) => void; 
   removeFromCart: (itemId: any) => void;
   clearCart: () => void;
 }
@@ -17,7 +17,7 @@ interface CartContextProps {
 const CartContext = createContext<CartContextProps>({
   cart: [],
   addToCart: () => {},
-  updateQuantity: () => {}, // Función vacía por defecto
+  updateQuantity: () => {}, 
   removeFromCart: () => {},
   clearCart: () => {},
 });
@@ -46,7 +46,7 @@ export const CartProvider = ({ children }: any) => {
     });
   };
 
-  // Nueva función para actualizar la cantidad de un producto en el carrito
+
   const updateQuantity = (itemId: any, quantity: number) => {
     setCart((prevCart: CartItem[]) =>
       prevCart.map((item: CartItem) =>
@@ -67,7 +67,7 @@ export const CartProvider = ({ children }: any) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, updateQuantity, removeFromCart, clearCart }} // Añadir updateQuantity al value
+      value={{ cart, addToCart, updateQuantity, removeFromCart, clearCart }} 
     >
       {children}
     </CartContext.Provider>

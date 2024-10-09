@@ -19,7 +19,7 @@ const center = {
 
 const Map = () => {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyBZgeNOur246vs8wMX2B8eDjwWHSFJ3lvk", // Reemplaza con tu API Key
+    googleMapsApiKey: "AIzaSyBZgeNOur246vs8wMX2B8eDjwWHSFJ3lvk", 
   });
 
   const [markers, setMarkers] = useState([]);
@@ -27,7 +27,6 @@ const Map = () => {
   const [address, setAddress] = useState("");
   const [geocodedLocation, setGeocodedLocation] = useState(null);
 
-  // Obtener la ubicación actual del usuario
   useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -46,7 +45,7 @@ const Map = () => {
     }
   }, []);
 
-  // Manejar clic en el mapa para mover el marcador
+
   const handleMapClick = (event: any) => {
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
@@ -55,7 +54,7 @@ const Map = () => {
     reverseGeocode({ lat, lng });
   };
 
-  // Geocodificar la dirección ingresada
+
   const handleGeocode = () => {
     const geocoder = new window.google.maps.Geocoder();
     geocoder.geocode({ address: address }, (results, status) => {
@@ -77,7 +76,7 @@ const Map = () => {
     });
   };
 
-  // Geocodificación inversa para obtener la dirección al hacer clic en el mapa
+
   const reverseGeocode = (location: { lat: number; lng: number }) => {
     const geocoder = new window.google.maps.Geocoder();
     geocoder.geocode({ location }, (results, status) => {
