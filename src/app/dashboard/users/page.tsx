@@ -72,8 +72,20 @@ export default function UsersDashboard() {
       uid: "role",
     },
     {
-      name: "DNI",
-      uid: "dni",
+      name: "Tipo de Documento",
+      uid: "documentType",
+    },
+    {
+      name: "Número de Documento",
+      uid: "documentNumber",
+    },
+    {
+      name: "Fecha de Nacimiento",
+      uid: "birthDate",
+    },
+    {
+      name: "Dirección de Domicilio",
+      uid: "address",
     },
   ];
 

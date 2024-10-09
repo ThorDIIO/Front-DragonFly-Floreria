@@ -31,39 +31,44 @@ export default function ShoppingCart() {
     phone: "",
     documentType: "",
     documentNumber: "",
-    birthDate: "",
     shippingAddress: "",
     deliveryDate: "",
     deliveryTime: "",
   });
-  const [isValid, setIsValid] = useState<boolean>(true);
+  const [isValid, setIsValid] = useState(true);
   const [docError, setDocError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({
+    firstName: false,
+    lastName: false,
+    email: false,
+    phone: false,
+    documentNumber: false,
+    deliveryDate: false,
+    deliveryTime: false,
+  });
+
   const documentTypes = ["DNI", "RUC", "Carnet de extranjería", "Pasaporte"];
   const timeOptions = ["12:00 a 14:00", "15:00 a 17:00", "18:00 a 20:00"];
 
-  console.log(cart);
-
-  // Calcular el total del carrito
+  // Calculate total
   const total = cart.reduce(
-    (acc: any, item: any) => acc + item.productPrice * item.quantity,
+    (acc, item) => acc + item.productPrice * item.quantity,
     0
   );
 
-  // Manejar cambios en los inputs del formulario
+  const igvPercentage = 0.18; // 18%
+  const subtotal = total / (1 + igvPercentage);
+  const igv = total - subtotal;
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
 
-    // Lógica para manejar el número de documento
     if (name === "documentNumber") {
       const docType = customerDetails.documentType;
       const maxLength = documentRules[docType];
-      
-      // Validar longitud máxima
       if (value.length > maxLength) return;
-
-      // Actualizar error si no cumple con la longitud máxima
       setDocError(value.length !== maxLength ? `Debe tener ${maxLength} caracteres` : "");
     }
 
@@ -71,19 +76,23 @@ export default function ShoppingCart() {
       ...prevDetails,
       [name]: value,
     }));
+
+    // Check if field is required and mark as invalid if empty
+    setFieldErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: !value && (name !== "documentNumber" || customerDetails.documentType),
+    }));
   };
 
-  // Manejar cambios en el tipo de documento
   const handleDocumentTypeChange = (value: string) => {
     setCustomerDetails((prevDetails) => ({
       ...prevDetails,
       documentType: value,
-      documentNumber: "", // Limpiar el número de documento al cambiar el tipo
+      documentNumber: "",
     }));
-    setDocError(""); // Limpiar el mensaje de error
+    setDocError("");
   };
 
-  // Validar el formulario
   const validateForm = (): boolean => {
     const {
       firstName,
@@ -113,13 +122,23 @@ export default function ShoppingCart() {
     return isValid;
   };
 
-  // Proceder al pago
   const handleProceedToPayment = () => {
-    if (validateForm()) {
+    const valid = validateForm();
+    if (valid) {
       alert("Formulario válido. Procediendo al pago...");
-      // Aquí puedes agregar la lógica para procesar el pago
+      // Add logic to process payment
     } else {
       alert("Por favor completa todos los campos obligatorios.");
+      // Update field errors to show validation messages
+      setFieldErrors({
+        firstName: !customerDetails.firstName,
+        lastName: !customerDetails.lastName,
+        email: !customerDetails.email,
+        phone: !customerDetails.phone,
+        documentNumber: !customerDetails.documentNumber,
+        deliveryDate: !customerDetails.deliveryDate,
+        deliveryTime: !customerDetails.deliveryTime,
+      });
     }
   };
 
@@ -137,6 +156,7 @@ export default function ShoppingCart() {
                 value={customerDetails.firstName}
                 onChange={handleInputChange}
                 required
+                className={fieldErrors.firstName ? "border-red-500" : ""}
               />
               <Input
                 label="Apellidos"
@@ -144,6 +164,7 @@ export default function ShoppingCart() {
                 value={customerDetails.lastName}
                 onChange={handleInputChange}
                 required
+                className={fieldErrors.lastName ? "border-red-500" : ""}
               />
             </div>
             <div className="flex items-center gap-x-2 justify-between">
@@ -153,6 +174,7 @@ export default function ShoppingCart() {
                 value={customerDetails.email}
                 onChange={handleInputChange}
                 required
+                className={fieldErrors.email ? "border-red-500" : ""}
               />
               <Input
                 label="Número de Teléfono"
@@ -160,6 +182,7 @@ export default function ShoppingCart() {
                 value={customerDetails.phone}
                 onChange={handleInputChange}
                 required
+                className={fieldErrors.phone ? "border-red-500" : ""}
               />
             </div>
             <div className="flex items-center gap-x-2 justify-between">
@@ -168,7 +191,10 @@ export default function ShoppingCart() {
                 name="documentType"
                 value={customerDetails.documentType}
                 onChange={(e) => handleDocumentTypeChange(e.target.value)}
+                required
+                className={fieldErrors.documentType ? "border-red-500" : ""}
               >
+                <SelectItem value="">Seleccionar...</SelectItem>
                 {documentTypes.map((type) => (
                   <SelectItem key={type} value={type}>
                     {type}
@@ -181,9 +207,12 @@ export default function ShoppingCart() {
                 value={customerDetails.documentNumber}
                 onChange={handleInputChange}
                 required
+                className={fieldErrors.documentNumber ? "border-red-500" : ""}
               />
-              {docError && <p className="text-red-500">{docError}</p>} {/* Mostrar error */}
+              {docError && <p className="text-red-500">{docError}</p>}
             </div>
+
+            <h2 className="text-2xl font-bold mb-4">Datos de envío</h2>
             <div className="flex items-center gap-x-2 justify-between">
               <Input
                 type="date"
@@ -192,6 +221,7 @@ export default function ShoppingCart() {
                 value={customerDetails.deliveryDate}
                 onChange={handleInputChange}
                 required
+                className={fieldErrors.deliveryDate ? "border-red-500" : ""}
               />
               <Select
                 label="Rango de Hora"
@@ -199,7 +229,9 @@ export default function ShoppingCart() {
                 value={customerDetails.deliveryTime}
                 onChange={handleInputChange}
                 required
+                className={fieldErrors.deliveryTime ? "border-red-500" : ""}
               >
+                <SelectItem value="">Seleccionar...</SelectItem>
                 {timeOptions.map((time) => (
                   <SelectItem key={time} value={time}>
                     {time}
@@ -215,7 +247,7 @@ export default function ShoppingCart() {
           )}
         </div>
 
-        <div className="w-full md:w-1/3 bg-gray-100 p-6 rounded-lg shadow-md">
+        <div className="w-full md:w-1/3 bg-gray-100 p-6 rounded-lg shadow-md h-auto min-h-[400px]">
           <h2 className="text-2xl font-bold mb-4">Resumen del Pedido</h2>
           <Table>
             <TableHeader>
@@ -229,22 +261,33 @@ export default function ShoppingCart() {
               {cart.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell>
-                    <img src={item.image} alt={item.productName} />
+                    <img
+                      src={item.image}
+                      alt={item.productName}
+                      className="w-16 h-16 object-cover rounded"
+                    />
                   </TableCell>
                   <TableCell>{item.productName}</TableCell>
                   <TableCell>
                     <Input
                       type="number"
-                      min={1}
-                      value={item.quantity + ""}
-                      onChange={(e) =>
-                        updateQuantity(item.id, parseInt(e.target.value))
-                      }
+                      min={0}
+                      value={item.quantity}
+                      onChange={(e) => {
+                        const newQuantity = Number(e.target.value);
+                        updateQuantity(item.id, newQuantity);
+
+                        // Remove item if quantity is 0
+                        if (newQuantity === 0) {
+                          removeFromCart(item.id);
+                        }
+                      }}
+                      className="w-16"
                     />
                   </TableCell>
                   <TableCell>S/. {item.productPrice.toFixed(2)}</TableCell>
                   <TableCell>
-                    <Button onClick={() => removeFromCart(item.id)}>
+                    <Button color="error" onClick={() => removeFromCart(item.id)}>
                       Eliminar
                     </Button>
                   </TableCell>
@@ -252,13 +295,22 @@ export default function ShoppingCart() {
               ))}
             </TableBody>
           </Table>
-          <h3 className="text-xl font-bold mt-4">
-            Total: S/. {total.toFixed(2)}
-          </h3>
-          <Button onClick={handleProceedToPayment} className="mt-4">
+          <div className="mt-4">
+            <p>
+              <strong>Subtotal:</strong> S/. {subtotal.toFixed(2)}
+            </p>
+            <p>
+              <strong>IGV (18%):</strong> S/. {igv.toFixed(2)}
+            </p>
+            <p>
+              <strong>Total:</strong> S/. {total.toFixed(2)}
+            </p>
+          </div>
+          <Button className="mt-4" onClick={handleProceedToPayment}>
             Proceder al Pago
           </Button>
         </div>
+
       </div>
       <Map />
     </div>
