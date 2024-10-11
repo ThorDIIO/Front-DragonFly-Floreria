@@ -121,25 +121,26 @@ export default function ShoppingCart() {
     setIsValid(isValid);
     return isValid;
   };
-
+  
   const handleProceedToPayment = () => {
-    const valid = validateForm();
-    if (valid) {
-      alert("Formulario válido. Procediendo al pago...");
-      // Add logic to process payment
-    } else {
-      alert("Por favor completa todos los campos obligatorios.");
-      // Update field errors to show validation messages
-      setFieldErrors({
-        firstName: !customerDetails.firstName,
-        lastName: !customerDetails.lastName,
-        email: !customerDetails.email,
-        phone: !customerDetails.phone,
-        documentNumber: !customerDetails.documentNumber,
-        deliveryDate: !customerDetails.deliveryDate,
-        deliveryTime: !customerDetails.deliveryTime,
-      });
-    }
+   window.open("https://mpago.la/2k1anq8","_self")
+    // const valid = validateForm();
+    // if (valid) {
+    //   alert("Formulario válido. Procediendo al pago...");
+    //   // Add logic to process payment
+    // } else {
+    //   alert("Por favor completa todos los campos obligatorios.");
+    //   // Update field errors to show validation messages
+    //   setFieldErrors({
+    //     firstName: !customerDetails.firstName,
+    //     lastName: !customerDetails.lastName,
+    //     email: !customerDetails.email,
+    //     phone: !customerDetails.phone,
+    //     documentNumber: !customerDetails.documentNumber,
+    //     deliveryDate: !customerDetails.deliveryDate,
+    //     deliveryTime: !customerDetails.deliveryTime,
+    //   });
+    // }
   };
 
   return (
