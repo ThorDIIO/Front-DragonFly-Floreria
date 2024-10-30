@@ -17,6 +17,21 @@ export const createProduction = async (form: any) => {
   }
 };
 
+export const getAllProductions = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/productions`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error al obtener las producciones:", error);
+    throw error;
+  }
+};
+
 export const getProductionById = async (id: string) => {
   try {
     const response = await fetch(`${BASE_URL}/productions/${id}`, {
@@ -47,3 +62,16 @@ export const updateProduction = async (form: any, id: string) => {
   }
 };
 
+export const deleteProduction = async (id: string) => {
+  try {
+    await fetch(`${BASE_URL}/productions/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    console.error("Error al eliminar la producción:", error);
+    throw error;
+  }
+};
