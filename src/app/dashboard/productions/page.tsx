@@ -114,7 +114,7 @@ export default function ProductionsDashboard() {
   }, []);
 
   const columns = [
-    { name: "Tip de Plantación", uid: "plantationType" },
+    { name: "Tipo de Plantación", uid: "plantationType" },
     { name: "Estado de Cultivo", uid: "cultivationStatus" },
     { name: "Inicio de Siembra", uid: "startDate" },
     { name: "Fin de Siembra", uid: "endDate" },
