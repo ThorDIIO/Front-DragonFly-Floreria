@@ -105,7 +105,7 @@ export default function Catalogo() {
               onClick={() => setSelectedCategory(null)}
               className={`cursor-pointer ${!selectedCategory ? "font-bold text-black" : ""}`}
             >
-              Todos los productos
+              
             </li>
             {categories.map((category) => (
               <li key={category.name} className="cursor-pointer">
