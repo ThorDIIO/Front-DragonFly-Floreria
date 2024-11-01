@@ -1,29 +1,12 @@
+"use client";
 import { useAuth } from "@/app/context/auth-context";
 import { useCart } from "@/app/context/cart-context";
-import { CartIcon } from "@/utils/icons/CartIcon";
-import { DeleteIcon } from "@/utils/icons/DeleteIcon";
-import {
-  Badge,
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
-  NavbarMenuToggle,
-  User,
-} from "@nextui-org/react";
+import { FaShoppingCart, FaHome, FaLeaf, FaInfoCircle, FaTags, FaWhatsapp } from "react-icons/fa";
+import { Badge, Button, Navbar, NavbarContent, NavbarItem } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { BiExit, BiUser } from "react-icons/bi";
-import { RxDashboard } from "react-icons/rx";
 import Logo from "../../public/LOGO-LETRA.png";
 
 export default function NavbarCustom({
@@ -34,196 +17,190 @@ export default function NavbarCustom({
   const { logout, user } = useAuth();
   const path = usePathname();
   const router = useRouter();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cart, clearCart } = useCart();
+  const badgeTotal = cart ? cart.reduce((acc, item) => acc + item.quantity, 0) : 0;
 
-  const items = [
-    { label: "Home", href: "/" },
-    { label: "Productos", href: "/catalogo" },
-    { label: "Cuidados", href: "/cuidado-planta" },
-    { label: "Sobre nosotros", href: "/sobre-nosotros" },
-  ];
-
-  const badgeTotal = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const [showBanner, setShowBanner] = useState(true); // Estado para controlar la visibilidad del banner
+  const [isProductsOpen, setIsProductsOpen] = useState(false); // Estado para controlar la visibilidad del menú de productos
+  const [isCartVisible, setIsCartVisible] = useState(false); // Estado para controlar el carrito lateral
 
   return (
     <>
-      <Navbar
-        isBordered
-        isMenuOpen={isMenuOpen}
-        onMenuOpenChange={setIsMenuOpen}
-      >
-        <NavbarContent className="sm:hidden" justify="start">
-          <NavbarMenuToggle
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          />
-        </NavbarContent>
+      {/* Banner de promoción con botón de cierre */}
+      {showBanner && (
+        <div className="w-full bg-pink-300 text-center py-2 text-black font-semibold relative">
+          🎉 ¡Oferta especial! Envío gratuito en pedidos superiores a S/.550 Aprovecha ahora! 🎉
+          <button
+            onClick={() => setShowBanner(false)}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-black font-bold"
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
-        <NavbarBrand className="max-sm:hidden pb-2">
-          <Link href={"/"}>
-            <Image
-              alt="Logo"
-              src={Logo}
-              height={130}
-              width={130}
-              className=""
-            />
-          </Link>
-        </NavbarBrand>
-        <NavbarContent justify="center" className="max-sm:hidden">
-          {items.map((item, index) => (
-            <NavbarItem key={`${item}-${index}`} isActive={path === item.href}>
-              <Link href={item.href}>{item.label}</Link>
+      {/* Barra de navegación principal */}
+      <Navbar isBordered={false} className="flex flex-col items-center w-full p-4 bg-white shadow-md">
+        
+        {/* Logo y menú de navegación */}
+        <NavbarContent justify="start" className="flex items-center gap-6">
+          {/* Logo */}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '40px', overflow: 'hidden', marginTop: '-6px', marginRight: '20px' }}>
+            <Link href={"/"} style={{ display: 'block', width: '250px', height: '250px' }}>
+              <Image
+                alt="Logo"
+                src={Logo}
+                width={180}
+                height={180}
+                style={{ display: 'block', objectFit: 'cover' }}
+              />
+            </Link>
+          </div>
+          
+          {/* Menú de navegación con iconos y menú desplegable en "Productos" */}
+          <div className="flex items-center gap-4 justify-center w-full">
+            <NavbarItem isActive={path === "/"} className="text-base font-semibold text-gray-800 flex items-center gap-2 hover:text-black transition">
+              <FaHome />
+              <Link href="/">Inicio</Link>
             </NavbarItem>
-          ))}
-        </NavbarContent>
-        {!user ? (
-          <NavbarContent justify="end">
-            <NavbarItem className="hidden lg:flex">
-              <Link href="/auth/login">Login</Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Button
-                as={Link}
-                color="warning"
-                href="/auth/register"
-                variant="flat"
-              >
-                Sign Up
-              </Button>
-            </NavbarItem>
-          </NavbarContent>
-        ) : (
-          <NavbarContent justify="end">
-            <NavbarItem>
-              <Dropdown className="select-none">
-                <DropdownTrigger>
-                  <Button variant="light">
-                    <Badge
-                      color="danger"
-                      content={badgeTotal}
-                      shape="circle"
-                      size="sm"
-                    >
-                      <CartIcon size={25} />
-                    </Badge>
-                  </Button>
-                </DropdownTrigger>
 
-                <DropdownMenu>
-                  <DropdownItem
-                    key="shopping-cart"
-                    onClick={() => router.push("/shopping-cart")}
-                  >
-                    {cart.length === 0 ? (
-                      <p>No hay productos en el carrito</p>
-                    ) : (
-                      <table>
-                        <tbody>
-                          {cart.map((item: any) => (
-                            <tr
-                              key={item.id}
-                              className="flex items-center gap-x-4 my-2"
-                            >
-                              <td>
-                                <img
-                                  src={item.image}
-                                  alt={item.name}
-                                  width={40}
-                                  height={40}
-                                />
-                              </td>
-                              <td>
-                                <p>
-                                  {item.productName} ({item.quantity})
-                                </p>
-                                <p>{item.productPrice}</p>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    )}
-                    <hr className="mt-4" />
-                  </DropdownItem>
-                  <DropdownItem
-                    key="delete"
-                    color="danger"
-                    startContent={<DeleteIcon className="text-xl" />}
-                    onClick={() => clearCart()}
-                  >
-                    Eliminar
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </NavbarItem>
-            <NavbarItem className="flex items-center gap-x-2 cursor-pointer">
-              <Dropdown>
-                <DropdownTrigger>
-                  <User
-                    name={user.fullName}
-                    description={user.sub}
-                    avatarProps={{
-                      src: "/batman.webp",
-                    }}
-                  />
-                </DropdownTrigger>
-                <DropdownMenu>
-                  <DropdownItem
-                    key="profile"
-                    onClick={() => router.push("/dashboard/profile")}
-                  >
-                    <div className="flex items-center gap-x-2">
-                      <BiUser
-                        className="cursor-pointer text-blue-500"
-                        size={20}
-                      />
-                      Perfil
-                    </div>
-                  </DropdownItem>
-                  {user.role.some((r: any) => r.authority === "ADMIN") && (
-                    <DropdownItem
-                      key="dashboard"
-                      onClick={() => router.push("/dashboard/products")}
-                    >
-                      <div className="flex items-center gap-x-2">
-                        <RxDashboard
-                          className="cursor-pointer text-green-500"
-                          size={20}
-                        />
-                        Dashboard
-                      </div>
-                    </DropdownItem>
-                  )}
-                  <DropdownItem key="logout" onClick={() => logout()}>
-                    <div className="flex items-center gap-x-2">
-                      <BiExit
-                        className="cursor-pointer text-red-500"
-                        size={20}
-                      />
-                      Cerrar sesión
-                    </div>
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </NavbarItem>
-          </NavbarContent>
-        )}
-
-        <NavbarMenu>
-          {items.map((item, index) => (
-            <NavbarMenuItem
-              key={`${item}-${index}`}
-              isActive={path === item.href}
+            {/* Menú de Productos con Desplegable en Hover */}
+            <div
+              onMouseEnter={() => setIsProductsOpen(true)}
+              onMouseLeave={() => setIsProductsOpen(false)}
+              className="relative"
             >
-              <Link className="w-full" href={item.href}>
-                {item.label}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </NavbarMenu>
+              <NavbarItem isActive={path === "/catalogo"} className="text-base font-semibold text-gray-800 flex items-center gap-2 hover:text-black transition cursor-pointer">
+                <FaTags />
+                Productos
+              </NavbarItem>
+              
+              {/* Menú desplegable */}
+              {isProductsOpen && (
+                <div 
+                  className="dropdown-menu absolute top-full left-0 bg-white shadow-lg rounded-md w-48 z-50"
+                  style={{ marginTop: '-4px' }} // Ajuste para eliminar la separación
+                  onMouseEnter={() => setIsProductsOpen(true)}
+                  onMouseLeave={() => setIsProductsOpen(false)}
+                >
+                  <ul className="p-2">
+                    <li className="py-1 px-4 hover:bg-gray-100">
+                      <Link href="/catalogo/rosas">Flores</Link>
+                    </li>
+                    <li className="py-1 px-4 hover:bg-gray-100">
+                      <Link href="/catalogo/arreglos-grandes">Arreglos Florales</Link>
+                    </li>
+                    <li className="py-1 px-4 hover:bg-gray-100">
+                      <Link href="/catalogo/arreglos-grandes">Condolencias</Link>
+                    </li>
+                    <li className="py-1 px-4 hover:bg-gray-100">
+                      <Link href="/catalogo/arreglos-grandes">Cuidado de la planta</Link>
+                    </li>
+                    <li className="py-1 px-4 hover:bg-gray-100">
+                      <Link href="/catalogo/orquideas">Ocaciones Especiales</Link>
+                    </li>
+                    <li className="py-1 px-4 hover:bg-gray-100">
+                      <Link href="/catalogo/flores-exoticas">Ramos y Boxes</Link>
+                    </li>
+                  </ul>
+                </div>
+              )}
+
+            </div>
+
+            <NavbarItem isActive={path === "/cuidado-planta"} className="text-base font-semibold text-gray-800 flex items-center gap-2 hover:text-black transition">
+              <FaLeaf />
+              <Link href="/cuidado-planta">Cuidados</Link>
+            </NavbarItem>
+            
+            <NavbarItem isActive={path === "/sobre-nosotros"} className="text-base font-semibold text-gray-800 flex items-center gap-2 hover:text-black transition">
+              <FaInfoCircle />
+              <Link href="/sobre-nosotros">Sobre nosotros</Link>
+            </NavbarItem>
+          </div>
+        </NavbarContent>
+
+        {/* Botones de Iniciar sesión, Registrarse y Carrito de compras */}
+        <NavbarContent justify="end" className="flex items-center gap-3">
+          <NavbarItem className="hidden lg:flex">
+            <Link href="/auth/login" className="text-gray-600 hover:text-black transition">
+              Iniciar sesión
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Button
+              as={Link}
+              color="warning"
+              href="/auth/register"
+              variant="flat"
+              className="text-base font-semibold shadow-md"
+            >
+              Registrarse
+            </Button>
+          </NavbarItem>
+          
+          {/* Icono del carrito para abrir el carrito lateral */}
+          <Button onClick={() => setIsCartVisible(!isCartVisible)}>
+            <Badge color="danger" content={badgeTotal} shape="circle" size="sm">
+              <FaShoppingCart size={20} />
+            </Badge>
+          </Button>
+        </NavbarContent>
       </Navbar>
-      <div className="pt-10">{children}</div>
+
+      {/* Carrito Lateral */}
+      {isCartVisible && (
+        <div className="fixed top-0 right-0 h-full w-80 bg-white shadow-lg z-50 p-4">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-bold">Tu Carrito</h2>
+            <button onClick={() => setIsCartVisible(false)}>✕</button>
+          </div>
+          {cart && cart.length === 0 ? (
+            <p>No hay productos en el carrito.</p>
+          ) : (
+            <ul>
+              {cart.map((item, index) => (
+                <li key={index} className="flex items-center gap-4 mb-4">
+                  {/* Imagen del producto o imagen de reserva */}
+                  <Image 
+                    src={item.image || "/placeholder-image.webp"} // Ruta alternativa si la imagen no existe
+                    alt={item.productName}
+                    width={40}
+                    height={40}
+                    onError={(e) => (e.currentTarget.src = "/placeholder-image.webp")}
+                  />
+                  <div className="flex-1">
+                    <p className="font-semibold">{item.productName}</p>
+                    <p>{item.quantity} x {item.productPrice}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          <Button color="primary" onClick={() => router.push("/shopping-cart")}>
+            Ver carrito completo
+          </Button>
+          <Button color="danger" onClick={() => clearCart()} className="mt-2">
+            Vaciar carrito
+          </Button>
+        </div>
+      )}
+
+      {/* Línea separadora */}
+      <hr className="w-full border-gray-300" />
+
+      {/* Contenido principal */}
+      <div>{children}</div>
+
+      {/* Botón flotante de WhatsApp para asistencia rápida */}
+      <a
+        href="https://wa.me/tu_numero_de_telefono"
+        className="fixed bottom-8 right-8 bg-green-500 text-white rounded-full p-4 shadow-lg hover:bg-green-600 transition"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaWhatsapp size={24} />
+      </a>
     </>
   );
 }
