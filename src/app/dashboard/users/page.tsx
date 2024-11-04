@@ -1,5 +1,6 @@
 "use client";
 import { getAllUsers } from "@/services/auth-services";
+import { getUsersByRole } from "@/services/users-service";
 import FlowerSpinner from "@/utils/icons/FlowerSpinner";
 import { SearchIcon } from "@/utils/icons/SearchIcon";
 
@@ -24,7 +25,7 @@ export default function UsersDashboard() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const data = await getAllUsers();
+        const data = await getUsersByRole(["USER"]);
         setUsers(data);
       } catch (error) {
         console.error(error);

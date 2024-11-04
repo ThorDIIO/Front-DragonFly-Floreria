@@ -1,19 +1,17 @@
 "use client";
-import { getAllWorkers } from "@/services/worker-services";
+import { getUsersByRole } from "@/services/users-service";
 import FlowerSpinner from "@/utils/icons/FlowerSpinner";
 import { SearchIcon } from "@/utils/icons/SearchIcon";
 
 import {
   Chip,
   Input,
-  Spinner,
   Table,
   TableBody,
   TableCell,
   TableColumn,
   TableHeader,
   TableRow,
-  User,
 } from "@nextui-org/react";
 import { useCallback, useEffect, useState } from "react";
 
@@ -24,8 +22,9 @@ export default function WorkersDashboard() {
   useEffect(() => {
     const fetchWorkers = async () => {
       try {
-        const data = await getAllWorkers();
+        const data = await getUsersByRole(["WORKER", "ADMIN"]);
         setWorkers(data);
+        // console.log(data);
       } catch (error) {
         console.error(error);
       } finally {
