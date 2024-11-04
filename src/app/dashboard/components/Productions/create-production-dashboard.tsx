@@ -21,14 +21,16 @@ export default function CreateProductionDashboard({
     e.preventDefault();
     const form = new FormData(e.target);
     const data = {
-      plantationType: form.get("plantationType"),
-      cultivationStatus: form.get("cultivationStatus"),
-      startDate: form.get("startDate"),
-      endDate: form.get("endDate"),
+      plantType: form.get("plantType"),
+      color: form.get("color"),
+      category: form.get("category"),
+      quantity: form.get("quantity"),
+      status: form.get("status"),
+      skuCode: form.get("skuCode"),
     };
 
     await createProduction(data);
-    handleReload(); 
+    handleReload();
   };
 
   return (
@@ -50,36 +52,41 @@ export default function CreateProductionDashboard({
                   Crear producción
                 </ModalHeader>
                 <ModalBody>
-                  <div className="flex gap-x-2">
-                    {/* Tipo de Plantación */}
+                  <div className="flex flex-wrap gap-4">
                     <Input
                       type="text"
-                      name="plantationType"
-                      label="Tipo de Plantación"
+                      name="plantType"
+                      label="Tipo de Planta"
                       isRequired
                     />
-
-                    {/* Estado de Cultivo */}
                     <Input
                       type="text"
-                      name="cultivationStatus"
-                      label="Estado de Cultivo"
+                      name="color"
+                      label="Color"
                       isRequired
                     />
-
-                    {/* Fecha de Inicio */}
                     <Input
-                      type="date"
-                      name="startDate"
-                      label="Fecha de Inicio"
+                      type="text"
+                      name="category"
+                      label="Categoría"
                       isRequired
                     />
-
-                    {/* Fecha de Finalización */}
                     <Input
-                      type="date"
-                      name="endDate"
-                      label="Fecha de Finalización"
+                      type="number"
+                      name="quantity"
+                      label="Cantidad"
+                      isRequired
+                    />
+                    <Input
+                      type="text"
+                      name="status"
+                      label="Estado"
+                      isRequired
+                    />
+                    <Input
+                      type="text"
+                      name="skuCode"
+                      label="Código SKU"
                       isRequired
                     />
                   </div>
@@ -100,5 +107,6 @@ export default function CreateProductionDashboard({
     </>
   );
 }
+
 
 

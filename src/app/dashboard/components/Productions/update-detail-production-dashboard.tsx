@@ -24,10 +24,12 @@ export default function UpdateProductionDashboard({
   handleReload: () => void;
 }) {
   const [production, setProduction] = useState({
-    plantationType: "",
-    cultivationStatus: "",
-    startDate: "",
-    endDate: ""
+    plantType: "",
+    color: "",
+    category: "",
+    quantity: "",
+    status: "",
+    skuCode: ""
   });
 
   useEffect(() => {
@@ -50,11 +52,14 @@ export default function UpdateProductionDashboard({
   };
 
   const handleUpdateProduction = async (e: any) => {
+    e.preventDefault();
     const form = {
-      plantationType: production.plantationType,
-      cultivationStatus: production.cultivationStatus,
-      startDate: production.startDate,
-      endDate: production.endDate,
+      plantType: production.plantType,
+      color: production.color,
+      category: production.category,
+      quantity: production.quantity,
+      status: production.status,
+      skuCode: production.skuCode
     };
     try {
       await updateProduction(form, id);
@@ -92,41 +97,59 @@ export default function UpdateProductionDashboard({
                   {type === "update" ? "Actualizar" : "Detalles de"} producción
                 </ModalHeader>
                 <ModalBody>
-                  <div className="flex gap-x-2">
+                  <div className="flex flex-wrap gap-4">
                     <Input
                       disabled={type === "details"}
                       type="text"
-                      name="plantationType"
-                      label="Tipo de Plantación"
+                      name="plantType"
+                      label="Tipo de Planta"
                       isRequired
-                      value={production.plantationType}
+                      value={production.plantType}
                       onChange={handleInputChange}
                     />
                     <Input
                       disabled={type === "details"}
                       type="text"
-                      name="cultivationStatus"
-                      label="Estado de Cultivo"
+                      name="color"
+                      label="Color"
                       isRequired
-                      value={production.cultivationStatus}
+                      value={production.color}
                       onChange={handleInputChange}
                     />
                     <Input
                       disabled={type === "details"}
-                      type="date"
-                      name="startDate"
-                      label="Fecha de Inicio"
+                      type="text"
+                      name="category"
+                      label="Categoría"
                       isRequired
-                      value={production.startDate}
+                      value={production.category}
                       onChange={handleInputChange}
                     />
                     <Input
                       disabled={type === "details"}
-                      type="date"
-                      name="endDate"
-                      label="Fecha de Finalización"
+                      type="number"
+                      name="quantity"
+                      label="Cantidad"
                       isRequired
-                      value={production.endDate}
+                      value={production.quantity}
+                      onChange={handleInputChange}
+                    />
+                    <Input
+                      disabled={type === "details"}
+                      type="text"
+                      name="status"
+                      label="Estado"
+                      isRequired
+                      value={production.status}
+                      onChange={handleInputChange}
+                    />
+                    <Input
+                      disabled={type === "details"}
+                      type="text"
+                      name="skuCode"
+                      label="Código SKU"
+                      isRequired
+                      value={production.skuCode}
                       onChange={handleInputChange}
                     />
                   </div>

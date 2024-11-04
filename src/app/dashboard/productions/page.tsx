@@ -49,7 +49,7 @@ export default function ProductionsDashboard() {
       await deleteProduction(id);
       handleReload();
     } catch (error) {
-      console.error("Error al eliminar una producción:", error);
+      console.error("Error al eliminar un registro:", error);
     }
   };
 
@@ -63,14 +63,18 @@ export default function ProductionsDashboard() {
   const renderCell = useCallback((production: any, columnKey: any) => {
     const cellValue = production[columnKey];
     switch (columnKey) {
-      case "plantationType":
-        return production.plantationType;
-      case "cultivationStatus":
-        return production.cultivationStatus;
-      case "startDate":
-        return production.startDate;
-      case "endDate":
-        return production.endDate;
+      case "plantType":
+        return production.plantType;
+      case "color":
+        return production.color;
+      case "category":
+        return production.category;
+      case "quantity":
+        return production.quantity;
+      case "status":
+        return production.status;
+      case "skuCode":
+        return production.skuCode;
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
@@ -86,7 +90,7 @@ export default function ProductionsDashboard() {
                 <EyeIcon />
               </span>
             </Tooltip>
-            <Tooltip content="Editar producción">
+            <Tooltip content="Editar">
               <span
                 className="text-lg text-default-400 cursor-pointer active:opacity-50"
                 onClick={() => {
@@ -98,7 +102,7 @@ export default function ProductionsDashboard() {
                 <EditIcon />
               </span>
             </Tooltip>
-            <Tooltip color="danger" content="Eliminar producción">
+            <Tooltip color="danger" content="Eliminar">
               <span
                 className="text-lg text-danger cursor-pointer active:opacity-50"
                 onClick={() => handleDeleteProduction(production.id)}
@@ -114,10 +118,12 @@ export default function ProductionsDashboard() {
   }, []);
 
   const columns = [
-    { name: "Tipo de Plantación", uid: "plantationType" },
-    { name: "Estado de Cultivo", uid: "cultivationStatus" },
-    { name: "Inicio de Siembra", uid: "startDate" },
-    { name: "Fin de Siembra", uid: "endDate" },
+    { name: "Tipo de Planta", uid: "plantType" },
+    { name: "Color", uid: "color" },
+    { name: "Categoría", uid: "category" },
+    { name: "Cantidad", uid: "quantity" },
+    { name: "Estado", uid: "status" },
+    { name: "Código SKU", uid: "skuCode" },
     { name: "Acciones", uid: "actions" },
   ];
 
@@ -146,7 +152,7 @@ export default function ProductionsDashboard() {
           <FlowerSpinner />
         </div>
       ) : (
-        <Table aria-label="Productions Table - DragonFly">
+        <Table aria-label="Productions Table">
           <TableHeader columns={columns}>
             {(column) => (
               <TableColumn key={column.uid}>{column.name}</TableColumn>
