@@ -1,7 +1,7 @@
 import { generalRoutes } from "@/utils/routes/general.routes";
 const BASE_URL = generalRoutes.BASE_URL;
 
-type Role = "WORKER" | "ADMIN" | "USER";
+type Role = "WORKER" | "ADMIN" | "USER" | "DELIVERY" | "GARDENER";
 
 export const getUsersByRole = async (role: Role[]) => {
   try {

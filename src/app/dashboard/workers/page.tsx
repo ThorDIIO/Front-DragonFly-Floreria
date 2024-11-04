@@ -22,9 +22,13 @@ export default function WorkersDashboard() {
   useEffect(() => {
     const fetchWorkers = async () => {
       try {
-        const data = await getUsersByRole(["WORKER", "ADMIN"]);
+        const data = await getUsersByRole([
+          "WORKER",
+          "ADMIN",
+          "DELIVERY",
+          "GARDENER",
+        ]);
         setWorkers(data);
-        // console.log(data);
       } catch (error) {
         console.error(error);
       } finally {
